@@ -1,10 +1,10 @@
 import "./App.css";
+import { AppRoutes } from "routes/AppRoutes";
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <button>Himadri</button>
+    <div className="bg-dark text-light">
+      <AppRoutes />
     </div>
   );
 }

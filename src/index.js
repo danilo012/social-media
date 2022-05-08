@@ -1,8 +1,11 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
 import "./index.css";
+import React from "react";
+import { Provider } from "react-redux";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { makeServer } from "./server";
+import store from "app/store";
 
 // Call make Server
 makeServer();
@@ -12,6 +15,10 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
   </React.StrictMode>
 );
