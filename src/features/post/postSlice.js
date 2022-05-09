@@ -1,0 +1,125 @@
+import axios from "axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+export const getPosts = createAsyncThunk(
+  "post/getPosts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data, status } = await axios.get("/api/posts");
+
+      if (status === 200) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const createPost = createAsyncThunk(
+  "post/createPost",
+  async (arg, { rejectWithValue }) => {
+    const { input, token, user } = arg;
+
+    try {
+      const { data, status } = await axios.post(
+        "/api/posts",
+        { postData: { content: input, fullName: user.fullName } },
+        {
+          headers: { authorization: token },
+        }
+      );
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const editPost = createAsyncThunk(
+  "post/editPost",
+  async (arg, { rejectWithValue }) => {
+    const { token, post, input } = arg;
+
+    try {
+      const { data, status } = await axios.post(
+        `/api/posts/edit/${post._id}`,
+        { postData: { content: input } },
+        {
+          headers: { authorization: token },
+        }
+      );
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "post/deletePost",
+  async (arg, { rejectWithValue }) => {
+    const { _id, token } = arg;
+
+    try {
+      const { data, status } = await axios.delete(`/api/posts/${_id}`, {
+        headers: { authorization: token },
+      });
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch (err) {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const postSlice = createSlice({
+  name: "post",
+  initialState: { posts: [], isLoading: false, error: "" },
+  reducers: {},
+
+  extraReducers: {
+    [getPosts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getPosts.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = payload;
+    },
+    [getPosts.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
+
+    [createPost.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [createPost.rejected]: (state, { payload }) => {
+      state.error = payload;
+    },
+
+    [editPost.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [editPost.rejected]: (state, { payload }) => {
+      state.error = payload;
+    },
+
+    [deletePost.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [deletePost.rejected]: (state, { payload }) => {
+      state.error = payload;
+    },
+  },
+});
+
+export default postSlice.reducer;

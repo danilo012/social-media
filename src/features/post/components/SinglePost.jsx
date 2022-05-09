@@ -1,0 +1,95 @@
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Loader, Sidebar, UserAvatar } from "components";
+import { PostOptionsModal } from "features/post";
+
+export const SinglePost = () => {
+  const { postId } = useParams();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+  const { posts, isLoading } = useSelector((state) => state.post);
+
+  const [showOptions, setShowOptions] = useState(false);
+
+  const currentPost = posts.find((post) => post.id === postId);
+
+  return (
+    <div className="grid grid-cols-[13rem_2fr_1fr]">
+      <Sidebar />
+
+      <div className="border-x border-darkGrey">
+        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10">
+          <i
+            className="fa-solid fa-arrow-left mr-4 cursor-pointer"
+            onClick={() => navigate(-1)}
+          ></i>
+          Post
+        </h1>
+
+        <div>
+          {isLoading ? (
+            <Loader />
+          ) : posts.length ? (
+            <div className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3">
+              <div className="grid grid-cols-[2rem_1fr] gap-2 ">
+                <UserAvatar name={currentPost?.fullName} />
+
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between ">
+                    <div className="flex flex-col">
+                      <span className="font-bold tracking-wide">
+                        {currentPost?.fullName}
+                      </span>
+                      <span className="text-lightGrey -mt-1">
+                        @{currentPost?.username}
+                      </span>
+                    </div>
+
+                    <div className="relative">
+                      <i
+                        className="fa-solid fa-ellipsis p-2 cursor-pointer hover:bg-dark hover:rounded-full"
+                        onClick={(e) => {
+                          setShowOptions((prev) => !prev);
+                          e.stopPropagation();
+                        }}
+                      ></i>
+
+                      {showOptions ? (
+                        <PostOptionsModal
+                          post={currentPost}
+                          setShowOptions={setShowOptions}
+                        />
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div>{currentPost?.content}</div>
+                </div>
+              </div>
+              <div className="flex justify-evenly gap-6  pt-2 mt-2 border-t border-darkGrey">
+                <i className="fa-regular fa-thumbs-up p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+                <i className="fa-regular fa-thumbs-down p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+                <i className="fa-regular fa-message p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+                <i className="fa-regular fa-bookmark p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+              </div>
+
+              <div className="grid grid-cols-[2rem_1fr] gap-2 pt-3 border-t border-darkGrey">
+                <UserAvatar name={user.fullName} />
+
+                <input
+                  type="text"
+                  placeholder="Post your reply"
+                  className="outline-none bg-inherit"
+                />
+              </div>
+            </div>
+          ) : (
+            <p className="text-center p-2">Post not found.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};

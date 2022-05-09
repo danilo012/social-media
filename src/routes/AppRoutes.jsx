@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login, SignUp } from "features/auth";
-import { Home } from "Home";
+import { Home } from "pages";
 import { PrivateRoute } from "routes/PrivateRoute";
 import { ResetScroll } from "components";
+import { SinglePost } from "features/post";
 
 export const AppRoutes = () => {
   const { token } = useSelector((state) => state.auth);
@@ -14,6 +15,7 @@ export const AppRoutes = () => {
         <Routes>
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
+            <Route path="/post/:postId" element={<SinglePost />} />
           </Route>
 
           {!token ? (
