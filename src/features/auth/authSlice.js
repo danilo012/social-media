@@ -53,6 +53,7 @@ export const authSlice = createSlice({
 
   initialState: {
     token: localStorage.getItem("SM_token") || null,
+    user: JSON.parse(localStorage.getItem("SM_user")) || null,
     isLoading: false,
   },
 
@@ -72,6 +73,7 @@ export const authSlice = createSlice({
     [loginHandler.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.token = payload.encodedToken;
+      state.user = payload.foundUser;
     },
     [loginHandler.rejected]: (state, { payload }) => {
       state.isLoading = payload;
@@ -84,6 +86,7 @@ export const authSlice = createSlice({
     [signUpHandler.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.token = payload.encodedToken;
+      state.user = payload.createdUser;
     },
     [signUpHandler.rejected]: (state, { payload }) => {
       state.loading = payload;
