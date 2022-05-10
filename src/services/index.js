@@ -6,3 +6,9 @@ export {
   likePostService,
   dislikePostService,
 } from "./postServices";
+
+export {
+  getBookmarkService,
+  addBookmarkService,
+  removeBookmarkService,
+} from "./userServices";

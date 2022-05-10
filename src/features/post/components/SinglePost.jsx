@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader, Sidebar, UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
+import { addBookmark } from "features/user";
 
 export const SinglePost = () => {
   const { postId } = useParams();
@@ -10,6 +11,7 @@ export const SinglePost = () => {
 
   const { user, token } = useSelector((state) => state.auth);
   const { posts, isLoading } = useSelector((state) => state.post);
+  const { bookmarks } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [showOptions, setShowOptions] = useState(false);
@@ -19,6 +21,8 @@ export const SinglePost = () => {
   const likedByLoggedUser = currentPost.likes.likedBy.find(
     (likeUser) => likeUser.username === user.username
   );
+
+  const postInBookmarks = bookmarks.find((bookmark) => bookmark.id === postId);
 
   return (
     <div className="grid grid-cols-[13rem_2fr_1fr]">
@@ -78,8 +82,7 @@ export const SinglePost = () => {
                 <div>
                   <button
                     className={`cursor-pointer hover:bg-dark hover:rounded-full `}
-                    onClick={(e) => {
-                      e.stopPropagation();
+                    onClick={() => {
                       likedByLoggedUser
                         ? dispatch(dislikePost({ token, _id: currentPost._id }))
                         : dispatch(likePost({ token, _id: currentPost._id }));
@@ -87,9 +90,7 @@ export const SinglePost = () => {
                   >
                     <i
                       className={` fa-heart p-2 ${
-                        likedByLoggedUser
-                          ? "fa-solid text-primary"
-                          : "fa-regular"
+                        likedByLoggedUser ? "fa-solid text-red" : "fa-regular"
                       }`}
                     ></i>
                   </button>
@@ -99,7 +100,21 @@ export const SinglePost = () => {
                 </div>
 
                 <i className="fa-regular fa-message p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
-                <i className="fa-regular fa-bookmark p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+
+                <div>
+                  <button
+                    className="cursor-pointer hover:bg-dark hover:rounded-full"
+                    onClick={() => {
+                      dispatch(addBookmark({ token, _id: currentPost._id }));
+                    }}
+                  >
+                    <i
+                      className={`fa-bookmark p-2 ${
+                        postInBookmarks ? "fa-solid text-primary" : "fa-regular"
+                      }`}
+                    ></i>
+                  </button>
+                </div>
               </div>
 
               <div className="grid grid-cols-[2rem_1fr] gap-2 pt-3 border-t border-darkGrey">

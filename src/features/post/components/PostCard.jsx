@@ -3,21 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
+import { addBookmark, removeBookmark } from "features/user";
 
 export const PostCard = ({ post }) => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
+  const { bookmarks } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const { _id, username, fullName, content, id, likes } = post;
   const navigate = useNavigate();
 
   const [showOptions, setShowOptions] = useState(false);
 
-  const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
-
   const likedByLoggedUser = post.likes.likedBy.find(
     (likeUser) => likeUser.username === user.username
   );
+
+  const postInBookmarks = bookmarks.find((bookmark) => bookmark._id === _id);
 
   return (
     <div
@@ -63,7 +65,7 @@ export const PostCard = ({ post }) => {
             >
               <i
                 className={` fa-heart p-2 ${
-                  likedByLoggedUser ? "fa-solid text-primary" : "fa-regular"
+                  likedByLoggedUser ? "fa-solid text-red" : "fa-regular"
                 }`}
               ></i>
             </button>
@@ -76,8 +78,20 @@ export const PostCard = ({ post }) => {
             <i className="fa-regular fa-message p-2"></i>
           </button>
 
-          <button className="cursor-pointer hover:bg-dark hover:rounded-full">
-            <i className="fa-regular fa-bookmark p-2"></i>
+          <button
+            className="cursor-pointer hover:bg-dark hover:rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              postInBookmarks
+                ? dispatch(removeBookmark({ token, _id }))
+                : dispatch(addBookmark({ token, _id }));
+            }}
+          >
+            <i
+              className={`fa-bookmark p-2 ${
+                postInBookmarks ? "fa-solid text-primary" : "fa-regular"
+              }`}
+            ></i>
           </button>
         </div>
       </div>

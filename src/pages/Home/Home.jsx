@@ -32,7 +32,7 @@ export const Home = () => {
                 .reverse()
                 .map((post) => <PostCard post={post} key={post._id} />)
             ) : (
-              <div>No posts</div>
+              <div className="p-4 text-center">No posts</div>
             )}
           </div>
         </div>

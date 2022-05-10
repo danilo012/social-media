@@ -38,7 +38,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
           </p>
         </>
       ) : (
-        <p className="p-2 cursor-pointer hover:bg-[#001e396b]">
+        <p className="py-2 px-4 cursor-pointer hover:bg-[#001e396b]">
           <i className="fa-solid fa-user-plus mr-2"></i>Follow
         </p>
       )}
