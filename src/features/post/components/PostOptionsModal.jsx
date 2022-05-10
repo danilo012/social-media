@@ -22,11 +22,11 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
   );
 
   return (
-    <div className="bg-dark absolute right-1.5 w-max rounded shadow-dark shadow-lg">
+    <div className="flex flex-col  bg-dark absolute right-1.5 w-max rounded shadow-dark shadow-lg">
       {username === user.username ? (
         <>
           <button
-            className="py-2 px-4 cursor-pointer hover:bg-[#001e396b]"
+            className="py-2 px-4 text-left cursor-pointer hover:bg-[#001e396b]"
             onClick={(e) => {
               e.stopPropagation();
               setShowNewPostModal(true);
@@ -35,7 +35,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
             <i className="fa-solid fa-pen-to-square mr-2"></i>Edit
           </button>
           <button
-            className="py-2 px-4 cursor-pointer text-red hover:bg-[#001e396b]"
+            className="py-2 px-4 text-left cursor-pointer text-red hover:bg-[#001e396b]"
             onClick={(e) => {
               e.stopPropagation();
               if (pathname !== "/") navigate("/");
@@ -47,7 +47,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
         </>
       ) : (
         <button
-          className="py-2 px-4 cursor-pointer hover:bg-[#001e396b]"
+          className="py-2 px-4 text-left cursor-pointer hover:bg-[#001e396b]"
           onClick={(e) => {
             e.stopPropagation();
             userAlreadyFollowing

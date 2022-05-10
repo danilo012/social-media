@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
@@ -14,6 +14,7 @@ export const PostCard = ({ post }) => {
   const navigate = useNavigate();
 
   const [showOptions, setShowOptions] = useState(false);
+  const postRef = useRef();
 
   const likedByLoggedUser = post.likes.likedBy.find(
     (likeUser) => likeUser.username === user.username
@@ -21,10 +22,26 @@ export const PostCard = ({ post }) => {
 
   const postInBookmarks = bookmarks.find((bookmark) => bookmark._id === _id);
 
+  useEffect(() => {
+    const closeOptionsModal = (e) => {
+      if (
+        showOptions &&
+        postRef.current &&
+        !postRef.current.contains(e.target)
+      ) {
+        setShowOptions(false);
+      }
+    };
+    document.addEventListener("mousedown", closeOptionsModal);
+
+    return () => document.removeEventListener("mousedown", closeOptionsModal);
+  }, [showOptions]);
+
   return (
     <div
       className="grid grid-cols-[2rem_1fr] gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 cursor-pointer"
       onClick={() => navigate(`/post/${id}`)}
+      ref={postRef}
     >
       <UserAvatar name={fullName} />
 
