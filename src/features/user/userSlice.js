@@ -1,9 +1,27 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import {
+  getAllUserService,
   getBookmarkService,
   addBookmarkService,
   removeBookmarkService,
+  followUserService,
+  unfollowUserService,
 } from "services";
+
+export const getAllUsers = createAsyncThunk(
+  "user/getAllUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data, status } = await getAllUserService();
+
+      if (status === 200) {
+        return data.users;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
 
 export const getBookmarks = createAsyncThunk(
   "user/getBookmark",
@@ -50,12 +68,68 @@ export const removeBookmark = createAsyncThunk(
   }
 );
 
+export const followUser = createAsyncThunk(
+  "user/followUser",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data, status } = await followUserService(arg);
+
+      if (status === 200) {
+        return data;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const unfollowUser = createAsyncThunk(
+  "user/unfollowUser",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data, status } = await unfollowUserService(arg);
+
+      if (status === 200) {
+        return data;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+const updateFollowingUser = (users, followingUser) => {
+  const foundUser = users.find((user) => user._id === followingUser._id);
+
+  if (foundUser) {
+    users = [...users].map((user) =>
+      user._id === foundUser._id ? followingUser : user
+    );
+  }
+  return users;
+};
+
+const updateFollowedUser = (users, followedUser) => {
+  const foundUser = users.find((user) => user._id === followedUser._id);
+
+  if (foundUser) {
+    users = [...users].map((user) =>
+      user._id === foundUser._id ? followedUser : user
+    );
+  }
+  return users;
+};
+
 export const userSlice = createSlice({
   name: "user",
-  initialState: { bookmarks: [], isLoading: false, error: "" },
+  initialState: { users: [], bookmarks: [], isLoading: false, error: "" },
   reducers: {},
 
   extraReducers: {
+    [getAllUsers.fulfilled]: (state, { payload }) => {
+      state.users = payload;
+    },
+
     [getBookmarks.fulfilled]: (state, { payload }) => {
       state.bookmarks = payload;
     },
@@ -66,6 +140,16 @@ export const userSlice = createSlice({
 
     [removeBookmark.fulfilled]: (state, { payload }) => {
       state.bookmarks = payload;
+    },
+
+    [followUser.fulfilled]: (state, { payload: { user, followUser } }) => {
+      state.users = updateFollowingUser(current(state).users, user);
+      state.users = updateFollowedUser(current(state).users, followUser);
+    },
+
+    [unfollowUser.fulfilled]: (state, { payload: { user, followUser } }) => {
+      state.users = updateFollowingUser(current(state).users, user);
+      state.users = updateFollowedUser(current(state).users, followUser);
     },
   },
 });

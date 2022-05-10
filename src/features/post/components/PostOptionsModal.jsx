@@ -2,22 +2,30 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deletePost, NewPost } from "features/post";
+import { followUser, unfollowUser } from "features/user";
 
 export const PostOptionsModal = ({ post, setShowOptions }) => {
   const { _id, username } = post;
-  const [showNewPostModal, setShowNewPostModal] = useState(false);
-
   const { token, user } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const [showNewPostModal, setShowNewPostModal] = useState(false);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const userToFollow = users.find((dbUser) => dbUser.username === username);
+
+  const userAlreadyFollowing = userToFollow.followers.find(
+    (follower) => follower.id === user.id
+  );
 
   return (
     <div className="bg-dark absolute right-1.5 w-max rounded shadow-dark shadow-lg">
       {username === user.username ? (
         <>
-          <p
+          <button
             className="py-2 px-4 cursor-pointer hover:bg-[#001e396b]"
             onClick={(e) => {
               e.stopPropagation();
@@ -25,8 +33,8 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
             }}
           >
             <i className="fa-solid fa-pen-to-square mr-2"></i>Edit
-          </p>
-          <p
+          </button>
+          <button
             className="py-2 px-4 cursor-pointer text-red hover:bg-[#001e396b]"
             onClick={(e) => {
               e.stopPropagation();
@@ -35,12 +43,27 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
             }}
           >
             <i className="fa-solid fa-trash mr-2"></i>Delete
-          </p>
+          </button>
         </>
       ) : (
-        <p className="py-2 px-4 cursor-pointer hover:bg-[#001e396b]">
-          <i className="fa-solid fa-user-plus mr-2"></i>Follow
-        </p>
+        <button
+          className="py-2 px-4 cursor-pointer hover:bg-[#001e396b]"
+          onClick={(e) => {
+            e.stopPropagation();
+            userAlreadyFollowing
+              ? dispatch(
+                  unfollowUser({ token, followUserId: userToFollow._id })
+                )
+              : dispatch(followUser({ token, followUserId: userToFollow._id }));
+          }}
+        >
+          <i
+            className={`mr-2 fa-solid fa-user-${
+              userAlreadyFollowing ? "xmark" : "plus"
+            } `}
+          ></i>
+          {userAlreadyFollowing ? "Unfollow" : "Follow"}
+        </button>
       )}
 
       {showNewPostModal ? (

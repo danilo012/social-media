@@ -8,7 +8,10 @@ export {
 } from "./postServices";
 
 export {
+  getAllUserService,
   getBookmarkService,
   addBookmarkService,
   removeBookmarkService,
+  followUserService,
+  unfollowUserService,
 } from "./userServices";
