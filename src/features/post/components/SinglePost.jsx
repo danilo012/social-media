@@ -1,19 +1,24 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Loader, Sidebar, UserAvatar } from "components";
-import { PostOptionsModal } from "features/post";
+import { PostOptionsModal, likePost, dislikePost } from "features/post";
 
 export const SinglePost = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const { posts, isLoading } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
 
   const [showOptions, setShowOptions] = useState(false);
 
   const currentPost = posts.find((post) => post.id === postId);
+
+  const likedByLoggedUser = currentPost.likes.likedBy.find(
+    (likeUser) => likeUser.username === user.username
+  );
 
   return (
     <div className="grid grid-cols-[13rem_2fr_1fr]">
@@ -68,9 +73,31 @@ export const SinglePost = () => {
                   <div>{currentPost?.content}</div>
                 </div>
               </div>
+
               <div className="flex justify-evenly gap-6  pt-2 mt-2 border-t border-darkGrey">
-                <i className="fa-regular fa-thumbs-up p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
-                <i className="fa-regular fa-thumbs-down p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+                <div>
+                  <button
+                    className={`cursor-pointer hover:bg-dark hover:rounded-full `}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      likedByLoggedUser
+                        ? dispatch(dislikePost({ token, _id: currentPost._id }))
+                        : dispatch(likePost({ token, _id: currentPost._id }));
+                    }}
+                  >
+                    <i
+                      className={` fa-heart p-2 ${
+                        likedByLoggedUser
+                          ? "fa-solid text-primary"
+                          : "fa-regular"
+                      }`}
+                    ></i>
+                  </button>
+                  {currentPost.likes.likeCount > 0 && (
+                    <span className="ml-1">{currentPost.likes.likeCount}</span>
+                  )}
+                </div>
+
                 <i className="fa-regular fa-message p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
                 <i className="fa-regular fa-bookmark p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
               </div>

@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
-import { PostOptionsModal } from "features/post";
+import { PostOptionsModal, likePost, dislikePost } from "features/post";
 
 export const PostCard = ({ post }) => {
-  const { username, fullName, content, id } = post;
+  const { user } = useSelector((state) => state.auth);
+
+  const { _id, username, fullName, content, id, likes } = post;
   const navigate = useNavigate();
 
   const [showOptions, setShowOptions] = useState(false);
+
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+
+  const likedByLoggedUser = post.likes.likedBy.find(
+    (likeUser) => likeUser.username === user.username
+  );
 
   return (
     <div
@@ -41,10 +51,34 @@ export const PostCard = ({ post }) => {
         <div>{content}</div>
 
         <div className="flex gap-6 -ml-2 mt-1">
-          <i className="fa-regular fa-thumbs-up p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
-          <i className="fa-regular fa-thumbs-down p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
-          <i className="fa-regular fa-message p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
-          <i className="fa-regular fa-bookmark p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+          <div>
+            <button
+              className={`cursor-pointer hover:bg-dark hover:rounded-full `}
+              onClick={(e) => {
+                e.stopPropagation();
+                likedByLoggedUser
+                  ? dispatch(dislikePost({ token, _id }))
+                  : dispatch(likePost({ token, _id }));
+              }}
+            >
+              <i
+                className={` fa-heart p-2 ${
+                  likedByLoggedUser ? "fa-solid text-primary" : "fa-regular"
+                }`}
+              ></i>
+            </button>
+            {likes.likeCount > 0 && (
+              <span className="ml-1">{likes.likeCount}</span>
+            )}
+          </div>
+
+          <button className="cursor-pointer hover:bg-dark hover:rounded-full">
+            <i className="fa-regular fa-message p-2"></i>
+          </button>
+
+          <button className="cursor-pointer hover:bg-dark hover:rounded-full">
+            <i className="fa-regular fa-bookmark p-2"></i>
+          </button>
         </div>
       </div>
     </div>

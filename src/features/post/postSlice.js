@@ -75,7 +75,53 @@ export const deletePost = createAsyncThunk(
       if (status === 201) {
         return data.posts;
       }
-    } catch (err) {
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const likePost = createAsyncThunk(
+  "post/likePost",
+  async (arg, { rejectWithValue }) => {
+    const { token, _id } = arg;
+
+    try {
+      const { data, status } = await axios.post(
+        `/api/posts/like/${_id}`,
+        {},
+        {
+          headers: { authorization: token },
+        }
+      );
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const dislikePost = createAsyncThunk(
+  "post/dislikePost",
+  async (arg, { rejectWithValue }) => {
+    const { token, _id } = arg;
+
+    try {
+      const { data, status } = await axios.post(
+        `/api/posts/dislike/${_id}`,
+        {},
+        {
+          headers: { authorization: token },
+        }
+      );
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
       return rejectWithValue([], "Error occured. Try again later.");
     }
   }
@@ -117,6 +163,20 @@ export const postSlice = createSlice({
       state.posts = payload;
     },
     [deletePost.rejected]: (state, { payload }) => {
+      state.error = payload;
+    },
+
+    [likePost.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [likePost.rejected]: (state, { payload }) => {
+      state.error = payload;
+    },
+
+    [dislikePost.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [dislikePost.rejected]: (state, { payload }) => {
       state.error = payload;
     },
   },
