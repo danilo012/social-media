@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader, Sidebar, UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark } from "features/user";
+import { useOnClickOutside } from "./../../../hooks/useOnClickOutside";
 
 export const SinglePost = () => {
   const { postId } = useParams();
@@ -15,15 +16,17 @@ export const SinglePost = () => {
   const dispatch = useDispatch();
 
   const [showOptions, setShowOptions] = useState(false);
+  const postRef = useRef();
 
   const currentPost = posts.find((post) => post.id === postId);
 
-  const likedByLoggedUser = currentPost.likes.likedBy.find(
+  const likedByLoggedUser = currentPost?.likes.likedBy.find(
     (likeUser) => likeUser.username === user.username
   );
 
   const postInBookmarks = bookmarks.find((bookmark) => bookmark.id === postId);
 
+  useOnClickOutside(postRef, setShowOptions);
   return (
     <div className="grid grid-cols-[13rem_2fr_1fr]">
       <Sidebar />
@@ -41,7 +44,10 @@ export const SinglePost = () => {
           {isLoading ? (
             <Loader />
           ) : posts.length ? (
-            <div className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3">
+            <div
+              className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3"
+              ref={postRef}
+            >
               <div className="grid grid-cols-[2rem_1fr] gap-2 ">
                 <UserAvatar name={currentPost?.fullName} />
 
@@ -94,8 +100,8 @@ export const SinglePost = () => {
                       }`}
                     ></i>
                   </button>
-                  {currentPost.likes.likeCount > 0 && (
-                    <span className="ml-1">{currentPost.likes.likeCount}</span>
+                  {currentPost?.likes.likeCount > 0 && (
+                    <span className="ml-1">{currentPost?.likes.likeCount}</span>
                   )}
                 </div>
 

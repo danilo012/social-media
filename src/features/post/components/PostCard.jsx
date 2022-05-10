@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark, removeBookmark } from "features/user";
+import { useOnClickOutside } from "./../../../hooks/useOnClickOutside";
 
 export const PostCard = ({ post }) => {
   const { user, token } = useSelector((state) => state.auth);
@@ -22,20 +23,7 @@ export const PostCard = ({ post }) => {
 
   const postInBookmarks = bookmarks.find((bookmark) => bookmark._id === _id);
 
-  useEffect(() => {
-    const closeOptionsModal = (e) => {
-      if (
-        showOptions &&
-        postRef.current &&
-        !postRef.current.contains(e.target)
-      ) {
-        setShowOptions(false);
-      }
-    };
-    document.addEventListener("mousedown", closeOptionsModal);
-
-    return () => document.removeEventListener("mousedown", closeOptionsModal);
-  }, [showOptions]);
+  useOnClickOutside(postRef, setShowOptions);
 
   return (
     <div
