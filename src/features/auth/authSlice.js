@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loginService, signUpService } from "services";
 
 export const loginHandler = createAsyncThunk(
   "auth/loginHandler",
@@ -8,7 +8,7 @@ export const loginHandler = createAsyncThunk(
     const { login, setLogin } = arg;
 
     try {
-      const { data, status } = await axios.post("/api/auth/login", login.input);
+      const { data, status } = await loginService(login.input);
 
       if (status === 200) {
         localStorage.setItem("SM_token", data.encodedToken);
@@ -30,10 +30,7 @@ export const signUpHandler = createAsyncThunk(
     const { signup, setSignup } = arg;
 
     try {
-      const { data, status } = await axios.post(
-        "/api/auth/signup",
-        signup.input
-      );
+      const { data, status } = await signUpService(signup.input);
 
       if (status === 201) {
         localStorage.setItem("SM_token", data.encodedToken);

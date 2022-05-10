@@ -1,3 +1,5 @@
+export { loginService, signUpService } from "./authServices";
+
 export {
   getAllPostsService,
   createPostService,
