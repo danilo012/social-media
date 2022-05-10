@@ -18,7 +18,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
       {username === user.username ? (
         <>
           <p
-            className="p-2 cursor-pointer hover:bg-[#001e396b]"
+            className="py-2 px-4 cursor-pointer hover:bg-[#001e396b]"
             onClick={(e) => {
               e.stopPropagation();
               setShowNewPostModal(true);
@@ -27,7 +27,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
             <i className="fa-solid fa-pen-to-square mr-2"></i>Edit
           </p>
           <p
-            className="p-2 cursor-pointer hover:bg-[#001e396b]"
+            className="py-2 px-4 cursor-pointer text-red hover:bg-[#001e396b]"
             onClick={(e) => {
               e.stopPropagation();
               if (pathname !== "/") navigate("/");
