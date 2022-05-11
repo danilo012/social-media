@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark, removeBookmark } from "features/user";
-import { useOnClickOutside } from "./../../../hooks/useOnClickOutside";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
+import { likedByLoggedUser, postInBookmarks } from "utils";
 
 export const PostCard = ({ post }) => {
   const { user, token } = useSelector((state) => state.auth);
@@ -16,12 +17,6 @@ export const PostCard = ({ post }) => {
 
   const [showOptions, setShowOptions] = useState(false);
   const postRef = useRef();
-
-  const likedByLoggedUser = post.likes.likedBy.find(
-    (likeUser) => likeUser.username === user.username
-  );
-
-  const postInBookmarks = bookmarks.find((bookmark) => bookmark._id === _id);
 
   useOnClickOutside(postRef, setShowOptions);
 
@@ -63,14 +58,16 @@ export const PostCard = ({ post }) => {
               className={`cursor-pointer hover:bg-dark hover:rounded-full `}
               onClick={(e) => {
                 e.stopPropagation();
-                likedByLoggedUser
+                likedByLoggedUser(post, user)
                   ? dispatch(dislikePost({ token, _id }))
                   : dispatch(likePost({ token, _id }));
               }}
             >
               <i
                 className={` fa-heart p-2 ${
-                  likedByLoggedUser ? "fa-solid text-red" : "fa-regular"
+                  likedByLoggedUser(post, user)
+                    ? "fa-solid text-red"
+                    : "fa-regular"
                 }`}
               ></i>
             </button>
@@ -87,14 +84,16 @@ export const PostCard = ({ post }) => {
             className="cursor-pointer hover:bg-dark hover:rounded-full"
             onClick={(e) => {
               e.stopPropagation();
-              postInBookmarks
+              postInBookmarks(bookmarks, _id)
                 ? dispatch(removeBookmark({ token, _id }))
                 : dispatch(addBookmark({ token, _id }));
             }}
           >
             <i
               className={`fa-bookmark p-2 ${
-                postInBookmarks ? "fa-solid text-primary" : "fa-regular"
+                postInBookmarks(bookmarks, _id)
+                  ? "fa-solid text-primary"
+                  : "fa-regular"
               }`}
             ></i>
           </button>

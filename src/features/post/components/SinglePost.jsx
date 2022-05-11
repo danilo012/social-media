@@ -3,8 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader, Sidebar, UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
-import { addBookmark } from "features/user";
-import { useOnClickOutside } from "./../../../hooks/useOnClickOutside";
+import { addBookmark, removeBookmark } from "features/user";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
+import { likedByLoggedUser, postInBookmarks } from "utils";
 
 export const SinglePost = () => {
   const { postId } = useParams();
@@ -20,13 +21,8 @@ export const SinglePost = () => {
 
   const currentPost = posts.find((post) => post.id === postId);
 
-  const likedByLoggedUser = currentPost?.likes.likedBy.find(
-    (likeUser) => likeUser.username === user.username
-  );
-
-  const postInBookmarks = bookmarks.find((bookmark) => bookmark.id === postId);
-
   useOnClickOutside(postRef, setShowOptions);
+
   return (
     <div className="grid grid-cols-[13rem_2fr_1fr]">
       <Sidebar />
@@ -89,14 +85,16 @@ export const SinglePost = () => {
                   <button
                     className={`cursor-pointer hover:bg-dark hover:rounded-full `}
                     onClick={() => {
-                      likedByLoggedUser
+                      likedByLoggedUser(currentPost, user)
                         ? dispatch(dislikePost({ token, _id: currentPost._id }))
                         : dispatch(likePost({ token, _id: currentPost._id }));
                     }}
                   >
                     <i
-                      className={` fa-heart p-2 ${
-                        likedByLoggedUser ? "fa-solid text-red" : "fa-regular"
+                      className={`fa-heart p-2 ${
+                        likedByLoggedUser(currentPost, user)
+                          ? "fa-solid text-red"
+                          : "fa-regular"
                       }`}
                     ></i>
                   </button>
@@ -111,12 +109,20 @@ export const SinglePost = () => {
                   <button
                     className="cursor-pointer hover:bg-dark hover:rounded-full"
                     onClick={() => {
-                      dispatch(addBookmark({ token, _id: currentPost._id }));
+                      postInBookmarks(bookmarks, currentPost?._id)
+                        ? dispatch(
+                            removeBookmark({ token, _id: currentPost?._id })
+                          )
+                        : dispatch(
+                            addBookmark({ token, _id: currentPost?._id })
+                          );
                     }}
                   >
                     <i
                       className={`fa-bookmark p-2 ${
-                        postInBookmarks ? "fa-solid text-primary" : "fa-regular"
+                        postInBookmarks(bookmarks, currentPost?._id)
+                          ? "fa-solid text-primary"
+                          : "fa-regular"
                       }`}
                     ></i>
                   </button>
