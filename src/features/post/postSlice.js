@@ -1,11 +1,18 @@
-import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  getAllPostsService,
+  createPostService,
+  editPostService,
+  deletePostService,
+  likePostService,
+  dislikePostService,
+} from "services";
 
 export const getPosts = createAsyncThunk(
   "post/getPosts",
   async (_, { rejectWithValue }) => {
     try {
-      const { data, status } = await axios.get("/api/posts");
+      const { data, status } = await getAllPostsService();
 
       if (status === 200) {
         return data.posts;
@@ -22,13 +29,7 @@ export const createPost = createAsyncThunk(
     const { input, token, user } = arg;
 
     try {
-      const { data, status } = await axios.post(
-        "/api/posts",
-        { postData: { content: input, fullName: user.fullName } },
-        {
-          headers: { authorization: token },
-        }
-      );
+      const { data, status } = await createPostService({ input, token, user });
 
       if (status === 201) {
         return data.posts;
@@ -45,13 +46,7 @@ export const editPost = createAsyncThunk(
     const { token, post, input } = arg;
 
     try {
-      const { data, status } = await axios.post(
-        `/api/posts/edit/${post._id}`,
-        { postData: { content: input } },
-        {
-          headers: { authorization: token },
-        }
-      );
+      const { data, status } = await editPostService({ token, post, input });
 
       if (status === 201) {
         return data.posts;
@@ -68,14 +63,46 @@ export const deletePost = createAsyncThunk(
     const { _id, token } = arg;
 
     try {
-      const { data, status } = await axios.delete(`/api/posts/${_id}`, {
-        headers: { authorization: token },
-      });
+      const { data, status } = await deletePostService({ _id, token });
 
       if (status === 201) {
         return data.posts;
       }
-    } catch (err) {
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const likePost = createAsyncThunk(
+  "post/likePost",
+  async (arg, { rejectWithValue }) => {
+    const { token, _id } = arg;
+
+    try {
+      const { data, status } = await likePostService({ token, _id });
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const dislikePost = createAsyncThunk(
+  "post/dislikePost",
+  async (arg, { rejectWithValue }) => {
+    const { token, _id } = arg;
+
+    try {
+      const { data, status } = await dislikePostService({ token, _id });
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
       return rejectWithValue([], "Error occured. Try again later.");
     }
   }
@@ -117,6 +144,20 @@ export const postSlice = createSlice({
       state.posts = payload;
     },
     [deletePost.rejected]: (state, { payload }) => {
+      state.error = payload;
+    },
+
+    [likePost.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [likePost.rejected]: (state, { payload }) => {
+      state.error = payload;
+    },
+
+    [dislikePost.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [dislikePost.rejected]: (state, { payload }) => {
       state.error = payload;
     },
   },

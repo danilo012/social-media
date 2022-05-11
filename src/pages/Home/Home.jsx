@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loader, Sidebar } from "components";
 import { logoutHandler } from "features/auth";
 import { NewPost, getPosts, PostCard } from "features/post";
+import { getAllUsers } from "features/user";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -10,10 +11,11 @@ export const Home = () => {
 
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   return (
-    <div className="grid grid-cols-[13rem_2fr_1fr]">
+    <div className="grid grid-cols-[13rem_2fr_1fr] w-[80%] m-auto">
       <Sidebar />
 
       <div className="border-x border-darkGrey">
@@ -32,7 +34,7 @@ export const Home = () => {
                 .reverse()
                 .map((post) => <PostCard post={post} key={post._id} />)
             ) : (
-              <div>No posts</div>
+              <div className="p-4 text-center">No posts</div>
             )}
           </div>
         </div>
