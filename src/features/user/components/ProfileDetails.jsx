@@ -1,17 +1,25 @@
 import "../styles.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { UserAvatar } from "components";
 import { logoutHandler } from "features/auth";
 import { followUser, unfollowUser } from "features/user";
 import { EditProfileModal } from "./EditProfileModal";
+import { FollowListModal } from "./FollowListModal";
 
 export const ProfileDetails = ({ currentUser }) => {
   const { user, token } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [editModal, setEditModal] = useState(false);
+  const [followModal, setFollowModal] = useState({
+    show: false,
+    title: "",
+    list: [],
+  });
+
+  const authUser = users.find((dbUser) => dbUser.username === user.username);
 
   const {
     id,
@@ -24,7 +32,7 @@ export const ProfileDetails = ({ currentUser }) => {
   } = currentUser;
 
   const userAlreadyFollowing = followers?.find(
-    (follower) => follower.id === user.id
+    (follower) => follower.username === authUser.username
   );
 
   return (
@@ -102,21 +110,48 @@ export const ProfileDetails = ({ currentUser }) => {
         )}
 
         <div className="flex gap-6">
-          <Link to="/" className="hover:underline">
+          <div
+            className="hover:underline cursor-pointer"
+            onClick={() =>
+              setFollowModal(() => ({
+                show: true,
+                title: "Following",
+                list: following,
+              }))
+            }
+          >
             <span className="font-bold">{following.length}</span>{" "}
             <span className="text-grey">Following</span>
-          </Link>
+          </div>
 
-          <Link to="/" className="hover:underline">
+          <div
+            className="hover:underline cursor-pointer"
+            onClick={() =>
+              setFollowModal(() => ({
+                show: true,
+                title: "Followers",
+                list: followers,
+              }))
+            }
+          >
             <span className="font-bold">{followers.length}</span>{" "}
             <span className="text-grey">Followers</span>
-          </Link>
+          </div>
         </div>
       </div>
 
       {editModal ? (
         <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center">
           <EditProfileModal setEditModal={setEditModal} />
+        </div>
+      ) : null}
+
+      {followModal.show ? (
+        <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center">
+          <FollowListModal
+            followModal={followModal}
+            setFollowModal={setFollowModal}
+          />
         </div>
       ) : null}
     </div>

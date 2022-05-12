@@ -15,6 +15,14 @@ export const users = [
     website: "https://www.himadrishah.tech",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    following: [
+      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
+      { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
+    ],
+    followers: [
+      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
+      { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
+    ],
   },
   {
     _id: uuid(),
@@ -25,6 +33,13 @@ export const users = [
     website: "https://www.google.com",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    following: [
+      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+    ],
+    followers: [
+      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+      { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
+    ],
   },
   {
     _id: uuid(),
@@ -35,5 +50,12 @@ export const users = [
     website: "https://www.google.com",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    following: [
+      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
+    ],
+    followers: [
+      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+    ],
   },
 ];

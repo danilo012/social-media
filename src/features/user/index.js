@@ -12,5 +12,6 @@ export {
 
 export { ProfileDetails } from "./components/ProfileDetails";
 export { EditProfileModal } from "./components/EditProfileModal";
+export { FollowListModal } from "./components/FollowListModal";
 
 export default userSlice.reducer;
