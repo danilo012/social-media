@@ -9,4 +9,6 @@ export {
   unfollowUser,
 } from "./userSlice";
 
+export { ProfileDetails } from "./components/ProfileDetails";
+
 export default userSlice.reducer;

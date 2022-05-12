@@ -24,7 +24,7 @@ export const SinglePost = () => {
   useOnClickOutside(postRef, setShowOptions);
 
   return (
-    <div className="grid grid-cols-[13rem_2fr_1fr]">
+    <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
       <Sidebar />
 
       <div className="border-x border-darkGrey">
@@ -41,15 +41,29 @@ export const SinglePost = () => {
             <Loader />
           ) : posts.length ? (
             <div
-              className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3"
+              className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
               ref={postRef}
             >
               <div className="grid grid-cols-[2rem_1fr] gap-2 ">
-                <UserAvatar name={currentPost?.fullName} />
+                <div
+                  className="cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/profile/${currentPost?.username}`);
+                  }}
+                >
+                  <UserAvatar name={currentPost?.fullName} />
+                </div>
 
                 <div className="flex flex-col gap-2">
-                  <div className="flex justify-between ">
-                    <div className="flex flex-col">
+                  <div className="flex justify-between">
+                    <div
+                      className="flex flex-col cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/profile/${currentPost?.username}`);
+                      }}
+                    >
                       <span className="font-bold tracking-wide">
                         {currentPost?.fullName}
                       </span>

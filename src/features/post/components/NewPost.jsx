@@ -37,7 +37,7 @@ export const NewPost = ({ post, setShowOptions }) => {
   return (
     <div
       className={`grid grid-cols-[2rem_1fr] gap-2 items-baseline bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text ${
-        post ? "w-1/2 shadow-dark shadow-lg rounded border" : "border-y"
+        post ? "w-1/2 shadow-dark shadow-lg rounded border" : "border-b"
       }`}
       onClick={(e) => {
         e.stopPropagation();

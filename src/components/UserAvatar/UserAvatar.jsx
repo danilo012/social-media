@@ -8,7 +8,7 @@ export const UserAvatar = ({ name }) => {
   const initialsArray = userInitials.map((initial) => initial[0].toUpperCase());
 
   return (
-    <span className="h-8 w-8 rounded-full text-sm flex justify-center items-center bg-primary">
+    <span className="user-avatar h-8 w-8 rounded-full text-sm flex justify-center items-center bg-primary select-none">
       {initialsArray.join("")}
     </span>
   );

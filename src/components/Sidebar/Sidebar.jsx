@@ -69,7 +69,7 @@ export const Sidebar = () => {
       <ul className="tracking-wide">
         <li>
           <NavLink
-            to="/profile"
+            to={`/profile/${username}`}
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
             className="p-3 w-max flex items-center justify-center gap-2 hover:bg-darkSecondary hover:rounded-full"
           >
@@ -77,7 +77,7 @@ export const Sidebar = () => {
 
             <div className="text-sm">
               <p className="font-bold">{fullName}</p>
-              <p className="text-lightGrey">@{username}</p>
+              <p className="text-lightGrey font-normal">@{username}</p>
             </div>
           </NavLink>
         </li>
