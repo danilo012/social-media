@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader, Sidebar } from "components";
+import { Loader, Sidebar, SuggestedUsers } from "components";
 import { NewPost, getPosts, PostCard } from "features/post";
 import { getAllUsers } from "features/user";
 
@@ -38,6 +38,8 @@ export const Home = () => {
           </div>
         </div>
       </div>
+
+      <SuggestedUsers />
     </div>
   );
 };

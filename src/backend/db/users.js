@@ -16,12 +16,12 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
-      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
       { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
     ],
     followers: [
       { _id: uuid(), fullName: "John Doe", username: "john_doe" },
       { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
+      { _id: uuid(), fullName: "Nikhil_Belide", username: "Nikhil_Belide" },
     ],
   },
   {
@@ -35,9 +35,9 @@ export const users = [
     updatedAt: formatDate(),
     following: [
       { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+      { _id: uuid(), fullName: "Nikhil_Belide", username: "Nikhil_Belide" },
     ],
     followers: [
-      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
       { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
     ],
   },
@@ -57,5 +57,19 @@ export const users = [
     followers: [
       { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
     ],
+  },
+  {
+    _id: uuid(),
+    fullName: "Nikhil_Belide",
+    username: "Nikhil_Belide",
+    password: "nikhil_00",
+    bio: "Web Dev under Construction",
+    website: "https://www.nikhil-belide.netlify.app",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    following: [
+      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+    ],
+    followers: [{ _id: uuid(), fullName: "John Doe", username: "john_doe" }],
   },
 ];

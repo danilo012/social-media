@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Loader, Sidebar } from "components";
+import { Loader, Sidebar, SuggestedUsers } from "components";
 import { PostCard } from "features/post";
 import { getBookmarks } from "features/user";
 
@@ -36,6 +36,8 @@ export const Bookmarks = () => {
           )}
         </div>
       </div>
+
+      <SuggestedUsers />
     </div>
   );
 };

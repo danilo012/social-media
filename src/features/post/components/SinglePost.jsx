@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Loader, Sidebar, UserAvatar } from "components";
+import { Loader, Sidebar, SuggestedUsers, UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark, removeBookmark } from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
@@ -158,6 +158,8 @@ export const SinglePost = () => {
           )}
         </div>
       </div>
+
+      <SuggestedUsers />
     </div>
   );
 };
