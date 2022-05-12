@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getAllUserService,
   getBookmarkService,
@@ -6,6 +6,7 @@ import {
   removeBookmarkService,
   followUserService,
   unfollowUserService,
+  updateProfileService,
 } from "services";
 
 export const getAllUsers = createAsyncThunk(
@@ -98,26 +99,31 @@ export const unfollowUser = createAsyncThunk(
   }
 );
 
-const updateFollowingUser = (users, followingUser) => {
-  const foundUser = users.find((user) => user._id === followingUser._id);
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data, status } = await updateProfileService(arg);
 
-  if (foundUser) {
-    users = [...users].map((user) =>
-      user._id === foundUser._id ? followingUser : user
-    );
+      if (status === 201) {
+        return data.user;
+      }
+    } catch {
+      return rejectWithValue("Some error occured. Try again");
+    }
   }
-  return users;
+);
+
+const updateFollowingUser = (users, followingUser) => {
+  return [...users].map((user) =>
+    user._id === followingUser._id ? followingUser : user
+  );
 };
 
 const updateFollowedUser = (users, followedUser) => {
-  const foundUser = users.find((user) => user._id === followedUser._id);
-
-  if (foundUser) {
-    users = [...users].map((user) =>
-      user._id === foundUser._id ? followedUser : user
-    );
-  }
-  return users;
+  return [...users].map((user) =>
+    user._id === followedUser._id ? followedUser : user
+  );
 };
 
 export const userSlice = createSlice({
@@ -128,6 +134,12 @@ export const userSlice = createSlice({
   extraReducers: {
     [getAllUsers.fulfilled]: (state, { payload }) => {
       state.users = payload;
+    },
+
+    [updateProfile.fulfilled]: (state, { payload }) => {
+      state.users = state.users.map((user) =>
+        user.username === payload.username ? payload : user
+      );
     },
 
     [getBookmarks.fulfilled]: (state, { payload }) => {
@@ -143,13 +155,13 @@ export const userSlice = createSlice({
     },
 
     [followUser.fulfilled]: (state, { payload: { user, followUser } }) => {
-      state.users = updateFollowingUser(current(state).users, user);
-      state.users = updateFollowedUser(current(state).users, followUser);
+      state.users = updateFollowingUser(state.users, user);
+      state.users = updateFollowedUser(state.users, followUser);
     },
 
     [unfollowUser.fulfilled]: (state, { payload: { user, followUser } }) => {
-      state.users = updateFollowingUser(current(state).users, user);
-      state.users = updateFollowedUser(current(state).users, followUser);
+      state.users = updateFollowingUser(state.users, user);
+      state.users = updateFollowedUser(state.users, followUser);
     },
   },
 });

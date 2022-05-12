@@ -11,9 +11,10 @@ const activeStyle = {
 };
 
 export const Sidebar = () => {
-  const {
-    user: { fullName, username },
-  } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
+
+  const currentUser = users.find((dbUser) => dbUser.username === user.username);
 
   return (
     <aside className="sticky flex flex-col justify-between h-screen top-0 overflow-y-auto overflow-x-hidden px-3 py-4">
@@ -69,15 +70,17 @@ export const Sidebar = () => {
       <ul className="tracking-wide">
         <li>
           <NavLink
-            to={`/profile/${username}`}
+            to={`/profile/${currentUser?.username}`}
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
             className="p-3 w-max flex items-center justify-center gap-2 hover:bg-darkSecondary hover:rounded-full"
           >
             <UserAvatar />
 
             <div className="text-sm">
-              <p className="font-bold">{fullName}</p>
-              <p className="text-lightGrey font-normal">@{username}</p>
+              <p className="font-bold">{currentUser?.fullName}</p>
+              <p className="text-lightGrey font-normal">
+                @{currentUser?.username}
+              </p>
             </div>
           </NavLink>
         </li>

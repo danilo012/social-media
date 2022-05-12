@@ -1,13 +1,17 @@
 import "../styles.css";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { UserAvatar } from "components";
 import { logoutHandler } from "features/auth";
 import { followUser, unfollowUser } from "features/user";
+import { EditProfileModal } from "./EditProfileModal";
 
 export const ProfileDetails = ({ currentUser }) => {
   const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  const [editModal, setEditModal] = useState(false);
 
   const {
     id,
@@ -38,7 +42,10 @@ export const ProfileDetails = ({ currentUser }) => {
             <div className="flex items-center gap-2">
               {id === user.id ? (
                 <>
-                  <button className="border border-primary rounded-full text-sm py-1 px-4 w-max">
+                  <button
+                    className="border border-primary rounded-full text-sm py-1 px-4 w-max"
+                    onClick={() => setEditModal(true)}
+                  >
                     Edit profile
                   </button>
                   <button
@@ -106,6 +113,12 @@ export const ProfileDetails = ({ currentUser }) => {
           </Link>
         </div>
       </div>
+
+      {editModal ? (
+        <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center">
+          <EditProfileModal setEditModal={setEditModal} />
+        </div>
+      ) : null}
     </div>
   );
 };

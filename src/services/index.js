@@ -11,6 +11,7 @@ export {
 
 export {
   getAllUserService,
+  updateProfileService,
   getBookmarkService,
   addBookmarkService,
   removeBookmarkService,
