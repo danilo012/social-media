@@ -8,9 +8,14 @@ export const NewPost = ({ post, setShowOptions }) => {
   const [input, setInput] = useState("");
 
   const { token, user } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const newPostRef = useRef();
+
+  const currentUser = users?.find(
+    (dbUser) => dbUser.username === user.username
+  );
 
   const submitPost = (e) => {
     e.preventDefault();
@@ -36,15 +41,15 @@ export const NewPost = ({ post, setShowOptions }) => {
 
   return (
     <div
-      className={`grid grid-cols-[2rem_1fr] gap-2 items-baseline bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text ${
-        post ? "w-1/2 shadow-dark shadow-lg rounded border" : "border-y"
+      className={`grid grid-cols-[2rem_1fr] gap-2 items-start bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text ${
+        post ? "w-1/2 shadow-dark shadow-lg rounded border" : "border-b"
       }`}
       onClick={(e) => {
         e.stopPropagation();
         focusInput();
       }}
     >
-      <UserAvatar />
+      <UserAvatar user={currentUser} />
 
       <form className="flex flex-col gap-4" onSubmit={submitPost}>
         <div
@@ -52,7 +57,7 @@ export const NewPost = ({ post, setShowOptions }) => {
           ref={newPostRef}
           contentEditable="true"
           placeholder="What's happening?"
-          className="w-full break-all bg-inherit outline-none"
+          className="w-full break-all bg-inherit outline-none mt-1.5"
           onInput={(e) => setInput(e.currentTarget.textContent)}
         />
 

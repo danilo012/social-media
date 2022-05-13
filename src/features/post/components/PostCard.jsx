@@ -9,14 +9,22 @@ import { likedByLoggedUser, postInBookmarks } from "utils";
 
 export const PostCard = ({ post }) => {
   const { user, token } = useSelector((state) => state.auth);
-  const { bookmarks } = useSelector((state) => state.user);
+  const { users, bookmarks } = useSelector((state) => state.user);
+  const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
-  const { _id, username, fullName, content, id, likes } = post;
   const navigate = useNavigate();
 
   const [showOptions, setShowOptions] = useState(false);
   const postRef = useRef();
+
+  const currentPost = posts?.find((dbPost) => dbPost._id === post._id);
+
+  const { _id, username, fullName, content, id, likes } = currentPost;
+
+  const currentUser = users?.find(
+    (dbUser) => dbUser.username === post.username
+  );
 
   useOnClickOutside(postRef, setShowOptions);
 
@@ -26,11 +34,24 @@ export const PostCard = ({ post }) => {
       onClick={() => navigate(`/post/${id}`)}
       ref={postRef}
     >
-      <UserAvatar name={fullName} />
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/profile/${username}`);
+        }}
+      >
+        <UserAvatar user={currentUser} />
+      </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 break-all">
         <div className="flex justify-between ">
-          <div className="flex items-center gap-1">
+          <div
+            className="flex items-center gap-1"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/profile/${username}`);
+            }}
+          >
             <span className="font-bold tracking-wide">{fullName}</span>
             <span className="text-lightGrey">@{username}</span>
           </div>
@@ -45,7 +66,10 @@ export const PostCard = ({ post }) => {
             ></i>
 
             {showOptions ? (
-              <PostOptionsModal post={post} setShowOptions={setShowOptions} />
+              <PostOptionsModal
+                post={currentPost}
+                setShowOptions={setShowOptions}
+              />
             ) : null}
           </div>
         </div>
@@ -58,14 +82,14 @@ export const PostCard = ({ post }) => {
               className={`cursor-pointer hover:bg-dark hover:rounded-full `}
               onClick={(e) => {
                 e.stopPropagation();
-                likedByLoggedUser(post, user)
+                likedByLoggedUser(currentPost, user)
                   ? dispatch(dislikePost({ token, _id }))
                   : dispatch(likePost({ token, _id }));
               }}
             >
               <i
                 className={` fa-heart p-2 ${
-                  likedByLoggedUser(post, user)
+                  likedByLoggedUser(currentPost, user)
                     ? "fa-solid text-red"
                     : "fa-regular"
                 }`}

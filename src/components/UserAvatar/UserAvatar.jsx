@@ -1,15 +1,25 @@
-import { useSelector } from "react-redux";
+export const UserAvatar = ({ user }) => {
+  const avatar = user?.profileAvatar;
 
-export const UserAvatar = ({ name }) => {
-  const { user } = useSelector((state) => state.auth);
+  const userInitials = user?.fullName.split(" ");
 
-  const userInitials = name ? name.split(" ") : user.fullName.split(" ");
-
-  const initialsArray = userInitials.map((initial) => initial[0].toUpperCase());
+  const initialsArray = userInitials?.map((initial) =>
+    initial[0].toUpperCase()
+  );
 
   return (
-    <span className="h-8 w-8 rounded-full text-sm flex justify-center items-center bg-primary">
-      {initialsArray.join("")}
+    <span className="user-avatar   select-none">
+      {avatar ? (
+        <img
+          src={avatar}
+          alt={user.username}
+          className="h-8 w-8 rounded-full"
+        />
+      ) : (
+        <span className="h-8 w-8 text-sm flex justify-center items-center rounded-full bg-primary">
+          {initialsArray?.join("")}
+        </span>
+      )}
     </span>
   );
 };

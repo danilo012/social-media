@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader, Sidebar } from "components";
-import { logoutHandler } from "features/auth";
+import { Loader, Sidebar, SuggestedUsers } from "components";
 import { NewPost, getPosts, PostCard } from "features/post";
 import { getAllUsers } from "features/user";
 
@@ -15,11 +14,11 @@ export const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="grid grid-cols-[13rem_2fr_1fr] w-[80%] m-auto">
+    <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
       <Sidebar />
 
       <div className="border-x border-darkGrey">
-        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10">
+        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10 border-b border-darkGrey">
           Home
         </h1>
 
@@ -38,14 +37,9 @@ export const Home = () => {
             )}
           </div>
         </div>
-
-        <button
-          className="bg-primary rounded-full py-1 px-4 w-max"
-          onClick={() => dispatch(logoutHandler())}
-        >
-          Logout
-        </button>
       </div>
+
+      <SuggestedUsers />
     </div>
   );
 };

@@ -4,6 +4,14 @@ export const getAllUserService = () => {
   return axios.get("/api/users");
 };
 
+export const updateProfileService = ({ editInput, token }) => {
+  return axios.post(
+    "/api/users/edit",
+    { userData: editInput },
+    { headers: { authorization: token } }
+  );
+};
+
 export const getBookmarkService = (token) => {
   return axios.get("/api/users/bookmark", {
     headers: { authorization: token },

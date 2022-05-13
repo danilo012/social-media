@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Loader, Sidebar, UserAvatar } from "components";
+import { Loader, Sidebar, SuggestedUsers, UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark, removeBookmark } from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
@@ -13,7 +13,7 @@ export const SinglePost = () => {
 
   const { user, token } = useSelector((state) => state.auth);
   const { posts, isLoading } = useSelector((state) => state.post);
-  const { bookmarks } = useSelector((state) => state.user);
+  const { users, bookmarks } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [showOptions, setShowOptions] = useState(false);
@@ -21,10 +21,14 @@ export const SinglePost = () => {
 
   const currentPost = posts.find((post) => post.id === postId);
 
+  const currentUser = users?.find(
+    (dbUser) => dbUser.username === currentPost.username
+  );
+
   useOnClickOutside(postRef, setShowOptions);
 
   return (
-    <div className="grid grid-cols-[13rem_2fr_1fr]">
+    <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
       <Sidebar />
 
       <div className="border-x border-darkGrey">
@@ -41,15 +45,29 @@ export const SinglePost = () => {
             <Loader />
           ) : posts.length ? (
             <div
-              className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3"
+              className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
               ref={postRef}
             >
               <div className="grid grid-cols-[2rem_1fr] gap-2 ">
-                <UserAvatar name={currentPost?.fullName} />
+                <div
+                  className="cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/profile/${currentPost?.username}`);
+                  }}
+                >
+                  <UserAvatar user={currentUser} />
+                </div>
 
                 <div className="flex flex-col gap-2">
-                  <div className="flex justify-between ">
-                    <div className="flex flex-col">
+                  <div className="flex justify-between">
+                    <div
+                      className="flex flex-col cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/profile/${currentPost?.username}`);
+                      }}
+                    >
                       <span className="font-bold tracking-wide">
                         {currentPost?.fullName}
                       </span>
@@ -130,7 +148,7 @@ export const SinglePost = () => {
               </div>
 
               <div className="grid grid-cols-[2rem_1fr] gap-2 pt-3 border-t border-darkGrey">
-                <UserAvatar name={user.fullName} />
+                <UserAvatar user={currentUser} />
 
                 <input
                   type="text"
@@ -144,6 +162,8 @@ export const SinglePost = () => {
           )}
         </div>
       </div>
+
+      <SuggestedUsers />
     </div>
   );
 };
