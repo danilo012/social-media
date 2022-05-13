@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
-import { updateProfile } from "features/user";
+import { updateProfile, setLoading } from "features/user";
+import toast from "react-hot-toast";
+
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dsxjhas6t/image/upload";
+const CLOUDINARY_UPLOAD_PRESET = "gjjzcn60";
 
 export const EditProfileModal = ({ setEditModal }) => {
   const { token, user } = useSelector((state) => state.auth);
@@ -13,6 +17,41 @@ export const EditProfileModal = ({ setEditModal }) => {
   );
 
   const [editInput, setEditInput] = useState(currentUser);
+  const [image, setImage] = useState(null);
+
+  const uploadImageFile = () => {
+    dispatch(setLoading());
+
+    const file = image;
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    formData.append("folder", "sapphire");
+
+    if (Math.round(file.size / 1024000) > 1) {
+      toast.error("File size should not be more than 1Mb");
+    } else {
+      fetch(CLOUDINARY_URL, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          return dispatch(
+            updateProfile({
+              editInput: {
+                ...currentUser,
+                ...editInput,
+                profileAvatar: data.url,
+              },
+              token,
+            })
+          );
+        })
+        .catch((err) => console.error(err));
+    }
+  };
 
   const editChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -21,9 +60,13 @@ export const EditProfileModal = ({ setEditModal }) => {
 
   const editFormHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      updateProfile({ editInput: { ...currentUser, ...editInput }, token })
-    );
+
+    if (image) {
+      uploadImageFile();
+    } else
+      dispatch(
+        updateProfile({ editInput: { ...currentUser, ...editInput }, token })
+      );
     setEditModal(false);
   };
 
@@ -48,8 +91,23 @@ export const EditProfileModal = ({ setEditModal }) => {
         </div>
 
         <label className="edit-profile relative w-max cursor-pointer">
-          <input type="file" className="hidden" />
-          <UserAvatar />
+          <input
+            type="file"
+            className="hidden"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+
+          <UserAvatar
+            user={
+              image
+                ? {
+                    ...currentUser,
+                    profileAvatar: URL.createObjectURL(image),
+                  }
+                : currentUser
+            }
+          />
+
           <i className="fa-solid fa-camera absolute -bottom-1 right-1 text-lg"></i>
         </label>
 

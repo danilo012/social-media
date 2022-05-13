@@ -9,7 +9,7 @@ import { likedByLoggedUser, postInBookmarks } from "utils";
 
 export const PostCard = ({ post }) => {
   const { user, token } = useSelector((state) => state.auth);
-  const { bookmarks } = useSelector((state) => state.user);
+  const { users, bookmarks } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const { _id, username, fullName, content, id, likes } = post;
@@ -17,6 +17,10 @@ export const PostCard = ({ post }) => {
 
   const [showOptions, setShowOptions] = useState(false);
   const postRef = useRef();
+
+  const currentUser = users?.find(
+    (dbUser) => dbUser.username === post.username
+  );
 
   useOnClickOutside(postRef, setShowOptions);
 
@@ -32,7 +36,7 @@ export const PostCard = ({ post }) => {
           navigate(`/profile/${username}`);
         }}
       >
-        <UserAvatar name={fullName} />
+        <UserAvatar user={currentUser} />
       </div>
 
       <div className="flex flex-col gap-1 break-all">

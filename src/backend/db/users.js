@@ -13,6 +13,8 @@ export const users = [
     password: "himadri123",
     bio: "Hey there, Himadri here",
     website: "https://www.himadrishah.tech",
+    profileAvatar:
+      "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
@@ -31,6 +33,8 @@ export const users = [
     password: "123john",
     bio: "Hey there, John here",
     website: "https://www.google.com",
+    profileAvatar:
+      "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
@@ -48,6 +52,8 @@ export const users = [
     password: "shubham456",
     bio: "Hey there, Shubham here",
     website: "https://www.google.com",
+    profileAvatar:
+      "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
@@ -65,6 +71,8 @@ export const users = [
     password: "nikhil_00",
     bio: "Web Dev under Construction",
     website: "https://www.nikhil-belide.netlify.app",
+    profileAvatar:
+      "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [

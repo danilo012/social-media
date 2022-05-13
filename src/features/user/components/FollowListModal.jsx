@@ -29,7 +29,7 @@ export const FollowListModal = ({ followModal, setFollowModal }) => {
                 setFollowModal(false);
               }}
             >
-              <UserAvatar name={item.fullName} />
+              <UserAvatar user={item} />
 
               <div className="flex flex-col -mt-0.5">
                 <span>{item.fullName}</span>

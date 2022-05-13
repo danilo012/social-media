@@ -100,7 +100,7 @@ export const unfollowUser = createAsyncThunk(
 );
 
 export const updateProfile = createAsyncThunk(
-  "auth/updateProfile",
+  "user/updateProfile",
   async (arg, { rejectWithValue }) => {
     try {
       const { data, status } = await updateProfileService(arg);
@@ -129,7 +129,11 @@ const updateFollowedUser = (users, followedUser) => {
 export const userSlice = createSlice({
   name: "user",
   initialState: { users: [], bookmarks: [], isLoading: false, error: "" },
-  reducers: {},
+  reducers: {
+    setLoading: (state) => {
+      state.isLoading = true;
+    },
+  },
 
   extraReducers: {
     [getAllUsers.fulfilled]: (state, { payload }) => {
@@ -140,6 +144,11 @@ export const userSlice = createSlice({
       state.users = state.users.map((user) =>
         user.username === payload.username ? payload : user
       );
+      state.isLoading = false;
+    },
+
+    [updateProfile.rejected]: (state) => {
+      state.isLoading = false;
     },
 
     [getBookmarks.fulfilled]: (state, { payload }) => {
@@ -166,4 +175,5 @@ export const userSlice = createSlice({
   },
 });
 
+export const { setLoading } = userSlice.actions;
 export default userSlice.reducer;

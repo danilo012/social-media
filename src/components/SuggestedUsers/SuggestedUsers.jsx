@@ -10,7 +10,7 @@ export const SuggestedUsers = () => {
 
   const navigate = useNavigate();
 
-  const userData = users.find((dbUser) => dbUser.username === user.username);
+  const userData = users?.find((dbUser) => dbUser.username === user.username);
 
   const filteredUsers = users
     .filter((dbUser) => dbUser.username !== userData.username)
@@ -33,7 +33,7 @@ export const SuggestedUsers = () => {
                 navigate(`/profile/${user.username}`);
               }}
             >
-              <UserAvatar name={user.fullName} />
+              <UserAvatar user={user} />
 
               <div className="flex flex-col grow -mt-0.5">
                 <span className="text-sm">{user.fullName}</span>

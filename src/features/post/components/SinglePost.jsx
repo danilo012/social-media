@@ -13,13 +13,17 @@ export const SinglePost = () => {
 
   const { user, token } = useSelector((state) => state.auth);
   const { posts, isLoading } = useSelector((state) => state.post);
-  const { bookmarks } = useSelector((state) => state.user);
+  const { users, bookmarks } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [showOptions, setShowOptions] = useState(false);
   const postRef = useRef();
 
   const currentPost = posts.find((post) => post.id === postId);
+
+  const currentUser = users?.find(
+    (dbUser) => dbUser.username === currentPost.username
+  );
 
   useOnClickOutside(postRef, setShowOptions);
 
@@ -52,7 +56,7 @@ export const SinglePost = () => {
                     navigate(`/profile/${currentPost?.username}`);
                   }}
                 >
-                  <UserAvatar name={currentPost?.fullName} />
+                  <UserAvatar user={currentUser} />
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -144,7 +148,7 @@ export const SinglePost = () => {
               </div>
 
               <div className="grid grid-cols-[2rem_1fr] gap-2 pt-3 border-t border-darkGrey">
-                <UserAvatar name={user.fullName} />
+                <UserAvatar user={currentUser} />
 
                 <input
                   type="text"

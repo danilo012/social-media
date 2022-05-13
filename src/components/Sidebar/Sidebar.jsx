@@ -74,7 +74,7 @@ export const Sidebar = () => {
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
             className="p-3 w-max flex items-center justify-center gap-2 hover:bg-darkSecondary hover:rounded-full"
           >
-            <UserAvatar />
+            <UserAvatar user={currentUser} />
 
             <div className="text-sm">
               <p className="font-bold">{currentUser?.fullName}</p>
