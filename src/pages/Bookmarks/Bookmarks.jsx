@@ -7,11 +7,17 @@ import { getBookmarks } from "features/user";
 export const Bookmarks = () => {
   const { token } = useSelector((state) => state.auth);
   const { bookmarks, isLoading } = useSelector((state) => state.user);
+  const { posts } = useSelector((state) => state.post);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getBookmarks(token));
   }, [dispatch, token]);
+
+  const bookmarkedPosts = posts.filter((dbPost) =>
+    bookmarks.find((bookmark) => bookmark === dbPost._id)
+  );
 
   return (
     <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
@@ -25,11 +31,11 @@ export const Bookmarks = () => {
         <div>
           {isLoading ? (
             <Loader />
-          ) : bookmarks.length ? (
-            [...bookmarks]
+          ) : bookmarkedPosts.length ? (
+            [...bookmarkedPosts]
               .reverse()
-              .map((bookmark) => (
-                <PostCard post={bookmark} key={bookmark._id} />
+              .map((bookmarkedPost) => (
+                <PostCard post={bookmarkedPost} key={bookmarkedPost._id} />
               ))
           ) : (
             <div className="p-4 text-center">No bookmarks</div>

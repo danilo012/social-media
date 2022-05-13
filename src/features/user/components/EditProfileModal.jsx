@@ -73,7 +73,7 @@ export const EditProfileModal = ({ setEditModal }) => {
   return (
     <div className="bg-darkSecondary text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto">
       <form className="flex flex-col gap-2.5" onSubmit={editFormHandler}>
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-center ">
           <div className="flex items-center">
             <button
               className="hover:bg-dark h-min hover:rounded-full px-2 py-0.5 mr-2"
@@ -90,7 +90,7 @@ export const EditProfileModal = ({ setEditModal }) => {
           </button>
         </div>
 
-        <label className="edit-profile relative w-max cursor-pointer">
+        <label className="edit-profile relative w-max cursor-pointer mx-auto my-2">
           <input
             type="file"
             className="hidden"
@@ -108,7 +108,7 @@ export const EditProfileModal = ({ setEditModal }) => {
             }
           />
 
-          <i className="fa-solid fa-camera absolute -bottom-1 right-1 text-lg"></i>
+          <i className="fa-solid fa-camera absolute text-md bottom-0 right-0"></i>
         </label>
 
         <div className="flex flex-col items-center py-1 px-2  rounded border-lightGrey border focus-within:border-primary">
