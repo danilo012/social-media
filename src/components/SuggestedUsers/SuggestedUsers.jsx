@@ -13,16 +13,16 @@ export const SuggestedUsers = () => {
   const userData = users?.find((dbUser) => dbUser.username === user.username);
 
   const filteredUsers = users
-    .filter((dbUser) => dbUser.username !== userData.username)
-    .filter(
+    ?.filter((dbUser) => dbUser.username !== userData?.username)
+    ?.filter(
       (eachUser) =>
-        !userData.following.find((item) => item.username === eachUser.username)
+        !userData?.following.find((item) => item.username === eachUser.username)
     );
 
   return (
     <>
       {filteredUsers.length ? (
-        <div className="flex flex-col justify-center gap-4 m-4 px-4 py-3 sticky top-0 rounded-md bg-darkSecondary h-max w-max">
+        <div className="flex flex-col justify-center gap-4 m-4 px-4 py-3 sticky top-4 rounded-md bg-darkSecondary h-max w-full">
           <div className="text-lg font-bold tracking-wide">Who To Follow</div>
 
           {filteredUsers.map((user) => (

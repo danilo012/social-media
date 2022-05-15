@@ -19,6 +19,7 @@ export const users = [
     updatedAt: formatDate(),
     following: [
       { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
+      { _id: uuid(), fullName: "Nikhil_Belide", username: "Nikhil_Belide" },
     ],
     followers: [
       { _id: uuid(), fullName: "John Doe", username: "john_doe" },
@@ -78,6 +79,9 @@ export const users = [
     following: [
       { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
     ],
-    followers: [{ _id: uuid(), fullName: "John Doe", username: "john_doe" }],
+    followers: [
+      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
+      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+    ],
   },
 ];

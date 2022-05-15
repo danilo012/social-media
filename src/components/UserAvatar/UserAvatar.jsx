@@ -8,7 +8,7 @@ export const UserAvatar = ({ user }) => {
   );
 
   return (
-    <span className="user-avatar   select-none">
+    <span className="user-avatar cursor-pointer select-none">
       {avatar ? (
         <img
           src={avatar}

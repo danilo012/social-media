@@ -20,7 +20,7 @@ export const Bookmarks = () => {
   );
 
   return (
-    <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
+    <div className="grid grid-cols-[13rem_1fr_18rem] w-[80%] m-auto">
       <Sidebar />
 
       <div className="border-x border-darkGrey">

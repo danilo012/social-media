@@ -20,6 +20,7 @@ export const posts = [
     fullName: "John Doe",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [],
   },
   {
     _id: uuid(),
@@ -34,6 +35,23 @@ export const posts = [
     fullName: "Himadri Shah",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [
+      {
+        _id: uuid(),
+        comment:
+          "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis ",
+        fullName: "Nikhil_Belide",
+        username: "Nikhil_Belide",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
+        createdAt: formatDate(),
+        updatedAt: formatDate(),
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
   },
   {
     _id: uuid(),
@@ -48,6 +66,7 @@ export const posts = [
     fullName: "Shubham Soni",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [],
   },
   {
     _id: uuid(),
@@ -62,6 +81,7 @@ export const posts = [
     fullName: "Nikhil_Belide",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [],
   },
   {
     _id: uuid(),
@@ -76,6 +96,23 @@ export const posts = [
     fullName: "John Doe",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [
+      {
+        _id: uuid(),
+        comment:
+          "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium",
+        fullName: "Shubham Soni",
+        username: "shubhamsoni",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
+        createdAt: formatDate(),
+        updatedAt: formatDate(),
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
   },
   {
     _id: uuid(),
@@ -90,6 +127,23 @@ export const posts = [
     fullName: "Nikhil_Belide",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [
+      {
+        _id: uuid(),
+        comment:
+          "eveniet ut et voluptates repudiandae sint et molestiae non recusandae. ",
+        username: "john_doe",
+        fullName: "John Doe",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
+        createdAt: formatDate(),
+        updatedAt: formatDate(),
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
   },
   {
     _id: uuid(),
@@ -104,6 +158,7 @@ export const posts = [
     fullName: "Himadri Shah",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [],
   },
   {
     _id: uuid(),
@@ -118,5 +173,36 @@ export const posts = [
     fullName: "Shubham Soni",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    comments: [
+      {
+        _id: uuid(),
+        comment: "Hello world",
+        username: "john_doe",
+        fullName: "John Doe",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
+        createdAt: formatDate(),
+        updatedAt: formatDate(),
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: uuid(),
+        comment:
+          "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+        fullName: "Himadri Shah",
+        username: "himadri_shah",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
+        createdAt: formatDate(),
+        updatedAt: formatDate(),
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
   },
 ];
