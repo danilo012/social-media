@@ -8,6 +8,7 @@ import {
   unfollowUserService,
   updateProfileService,
 } from "services";
+import toast from "react-hot-toast";
 
 export const getAllUsers = createAsyncThunk(
   "user/getAllUsers",
@@ -46,6 +47,7 @@ export const addBookmark = createAsyncThunk(
       const { data, status } = await addBookmarkService(arg);
 
       if (status === 200) {
+        toast.success("Post added to bookmark");
         return data.bookmarks;
       }
     } catch {
@@ -61,6 +63,7 @@ export const removeBookmark = createAsyncThunk(
       const { data, status } = await removeBookmarkService(arg);
 
       if (status === 200) {
+        toast.success("Post removed from bookmark");
         return data.bookmarks;
       }
     } catch {
@@ -76,6 +79,7 @@ export const followUser = createAsyncThunk(
       const { data, status } = await followUserService(arg);
 
       if (status === 200) {
+        toast.success(`${data.followUser.username} followed`);
         return data;
       }
     } catch {
@@ -91,6 +95,7 @@ export const unfollowUser = createAsyncThunk(
       const { data, status } = await unfollowUserService(arg);
 
       if (status === 200) {
+        toast.success(`${data.followUser.username} unfollowed`);
         return data;
       }
     } catch {
@@ -106,6 +111,7 @@ export const updateProfile = createAsyncThunk(
       const { data, status } = await updateProfileService(arg);
 
       if (status === 201) {
+        toast.success("Profile updated");
         return data.user;
       }
     } catch {

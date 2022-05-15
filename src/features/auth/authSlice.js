@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginService, signUpService } from "services";
+import toast from "react-hot-toast";
 
 export const loginHandler = createAsyncThunk(
   "auth/loginHandler",
@@ -13,6 +14,13 @@ export const loginHandler = createAsyncThunk(
       if (status === 200) {
         localStorage.setItem("SM_token", data.encodedToken);
         localStorage.setItem("SM_user", JSON.stringify(data.foundUser));
+
+        toast.success(
+          `Welcome back, ${data.foundUser.fullName.split(" ")[0]}!`,
+          {
+            icon: "👋",
+          }
+        );
 
         return data;
       }
@@ -35,6 +43,10 @@ export const signUpHandler = createAsyncThunk(
       if (status === 201) {
         localStorage.setItem("SM_token", data.encodedToken);
         localStorage.setItem("SM_user", JSON.stringify(data.createdUser));
+
+        toast.success(`Hi, ${data.createdUser.fullName.split(" ")[0]}!`, {
+          icon: "👋",
+        });
 
         return data;
       }
@@ -59,6 +71,7 @@ export const authSlice = createSlice({
       state.token = null;
       localStorage.removeItem("SM_token");
       localStorage.removeItem("SM_user");
+      toast.success("Logged out");
     },
   },
 
