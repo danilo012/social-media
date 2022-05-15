@@ -208,13 +208,13 @@ export const SinglePost = () => {
                     required
                     ref={newCommentRef}
                     placeholder="Post your reply"
-                    className="outline-none bg-inherit"
+                    className="outline-none bg-inherit grow"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                   />
 
                   <button
-                    className="bg-primary rounded-full py-1 px-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-primary rounded-full py-1 px-3 ml-4 disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!comment.trim()}
                     type="submit"
                   >
