@@ -4,6 +4,10 @@ const getAllPostsService = () => {
   return axios.get("/api/posts");
 };
 
+const getSinglePostService = (postId) => {
+  return axios.get(`/api/posts/${postId}`);
+};
+
 const createPostService = ({ input, token, user }) => {
   return axios.post(
     "/api/posts",
@@ -50,11 +54,45 @@ const dislikePostService = ({ _id, token }) => {
   );
 };
 
+const addCommentService = ({ postId, commentData, token }) => {
+  return axios.post(
+    `/api/comments/add/${postId}`,
+    { commentData },
+    {
+      headers: { authorization: token },
+    }
+  );
+};
+
+const editCommentService = ({ token, commentData, postId, commentId }) => {
+  return axios.post(
+    `/api/comments/edit/${postId}/${commentId}`,
+    { commentData },
+    {
+      headers: { authorization: token },
+    }
+  );
+};
+
+const deleteCommentService = ({ token, postId, commentId }) => {
+  return axios.post(
+    `/api/comments/delete/${postId}/${commentId}`,
+    {},
+    {
+      headers: { authorization: token },
+    }
+  );
+};
+
 export {
   getAllPostsService,
+  getSinglePostService,
   createPostService,
   editPostService,
   deletePostService,
   likePostService,
   dislikePostService,
+  addCommentService,
+  editCommentService,
+  deleteCommentService,
 };

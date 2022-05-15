@@ -4,5 +4,9 @@ import postSlice from "features/post";
 import userSlice from "features/user";
 
 export default configureStore({
-  reducer: { auth: authReducer, post: postSlice, user: userSlice },
+  reducer: {
+    auth: authReducer,
+    post: postSlice,
+    user: userSlice,
+  },
 });

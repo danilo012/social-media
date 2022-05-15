@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getAllPostsService,
+  getSinglePostService,
   createPostService,
   editPostService,
   deletePostService,
   likePostService,
   dislikePostService,
+  addCommentService,
+  editCommentService,
+  deleteCommentService,
 } from "services";
 
 export const getPosts = createAsyncThunk(
@@ -16,6 +20,21 @@ export const getPosts = createAsyncThunk(
 
       if (status === 200) {
         return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const getSinglePost = createAsyncThunk(
+  "post/getSinglePost",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const { data, status } = await getSinglePostService(postId);
+
+      if (status === 200) {
+        return data.post;
       }
     } catch {
       return rejectWithValue([], "Error occured. Try again later.");
@@ -108,10 +127,59 @@ export const dislikePost = createAsyncThunk(
   }
 );
 
+export const addComment = createAsyncThunk(
+  "post/addComment",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data, status } = await addCommentService(arg);
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const editComment = createAsyncThunk(
+  "post/editComment",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data, status } = await editCommentService(arg);
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
+export const deleteComment = createAsyncThunk(
+  "post/deleteComment",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data, status } = await deleteCommentService(arg);
+
+      if (status === 201) {
+        return data.posts;
+      }
+    } catch {
+      return rejectWithValue([], "Error occured. Try again later.");
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
-  initialState: { posts: [], isLoading: false, error: "" },
-  reducers: {},
+  initialState: { posts: [], singlePost: null, isLoading: false, error: "" },
+  reducers: {
+    resetSinglePost: (state) => {
+      state.singlePost = null;
+    },
+  },
 
   extraReducers: {
     [getPosts.pending]: (state) => {
@@ -124,6 +192,17 @@ export const postSlice = createSlice({
     [getPosts.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+    },
+
+    [getSinglePost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getSinglePost.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.singlePost = payload;
+    },
+    [getSinglePost.rejected]: (state) => {
+      state.isLoading = false;
     },
 
     [createPost.fulfilled]: (state, { payload }) => {
@@ -160,7 +239,18 @@ export const postSlice = createSlice({
     [dislikePost.rejected]: (state, { payload }) => {
       state.error = payload;
     },
+
+    [addComment.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [editComment.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
+    [deleteComment.fulfilled]: (state, { payload }) => {
+      state.posts = payload;
+    },
   },
 });
 
+export const { resetSinglePost } = postSlice.actions;
 export default postSlice.reducer;

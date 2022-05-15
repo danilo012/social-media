@@ -1,9 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader, Sidebar, SuggestedUsers, UserAvatar } from "components";
-import { PostOptionsModal, likePost, dislikePost } from "features/post";
-import { addBookmark, removeBookmark } from "features/user";
+import {
+  PostOptionsModal,
+  likePost,
+  dislikePost,
+  getSinglePost,
+  resetSinglePost,
+  CommentCard,
+  addComment,
+} from "features/post";
+import { addBookmark, removeBookmark, getAllUsers } from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import { likedByLoggedUser, postInBookmarks } from "utils";
 
@@ -12,20 +20,41 @@ export const SinglePost = () => {
   const navigate = useNavigate();
 
   const { user, token } = useSelector((state) => state.auth);
-  const { posts, isLoading } = useSelector((state) => state.post);
+  const {
+    posts,
+    singlePost: currentPost,
+    isLoading,
+  } = useSelector((state) => state.post);
   const { users, bookmarks } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [showOptions, setShowOptions] = useState(false);
+  const [comment, setComment] = useState("");
+
   const postRef = useRef();
 
-  const currentPost = posts.find((post) => post.id === postId);
-
   const currentUser = users?.find(
-    (dbUser) => dbUser.username === currentPost.username
+    (dbUser) => dbUser.username === currentPost?.username
   );
 
+  const loggedInUser = users.find(
+    (dbUser) => dbUser.username === user.username
+  );
+
+  useEffect(() => {
+    dispatch(getSinglePost(postId));
+    dispatch(getAllUsers());
+
+    return () => dispatch(resetSinglePost());
+  }, [posts, postId, dispatch]);
+
   useOnClickOutside(postRef, setShowOptions);
+
+  const newCommentRef = useRef();
+
+  const focusInput = () => {
+    newCommentRef.current && newCommentRef.current.focus();
+  };
 
   return (
     <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
@@ -43,7 +72,7 @@ export const SinglePost = () => {
         <div>
           {isLoading ? (
             <Loader />
-          ) : posts.length ? (
+          ) : (
             <div
               className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
               ref={postRef}
@@ -101,7 +130,7 @@ export const SinglePost = () => {
               <div className="flex justify-evenly gap-6  pt-2 mt-2 border-t border-darkGrey">
                 <div>
                   <button
-                    className={`cursor-pointer hover:bg-dark hover:rounded-full `}
+                    className="cursor-pointer hover:bg-dark hover:rounded-full"
                     onClick={() => {
                       likedByLoggedUser(currentPost, user)
                         ? dispatch(dislikePost({ token, _id: currentPost._id }))
@@ -121,7 +150,17 @@ export const SinglePost = () => {
                   )}
                 </div>
 
-                <i className="fa-regular fa-message p-2 cursor-pointer hover:bg-dark hover:rounded-full"></i>
+                <div>
+                  <button
+                    className="cursor-pointer hover:bg-dark hover:rounded-full"
+                    onClick={focusInput}
+                  >
+                    <i className="fa-regular fa-message p-2 "></i>
+                  </button>
+                  {currentPost?.comments.length > 0 && (
+                    <span className="ml-1">{currentPost?.comments.length}</span>
+                  )}
+                </div>
 
                 <div>
                   <button
@@ -148,17 +187,53 @@ export const SinglePost = () => {
               </div>
 
               <div className="grid grid-cols-[2rem_1fr] gap-2 pt-3 border-t border-darkGrey">
-                <UserAvatar user={currentUser} />
+                <UserAvatar user={loggedInUser} />
 
-                <input
-                  type="text"
-                  placeholder="Post your reply"
-                  className="outline-none bg-inherit"
-                />
+                <form
+                  className="flex justify-between"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    dispatch(
+                      addComment({
+                        token,
+                        commentData: { comment },
+                        postId: currentPost._id,
+                      })
+                    );
+                    setComment("");
+                  }}
+                >
+                  <input
+                    type="text"
+                    required
+                    ref={newCommentRef}
+                    placeholder="Post your reply"
+                    className="outline-none bg-inherit"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+
+                  <button
+                    className="bg-primary rounded-full py-1 px-3"
+                    type="submit"
+                  >
+                    Reply
+                  </button>
+                </form>
               </div>
+
+              {currentPost?.comments.length > 0
+                ? [...currentPost.comments]
+                    .reverse()
+                    .map((comment) => (
+                      <CommentCard
+                        comment={comment}
+                        key={comment._id}
+                        postId={currentPost._id}
+                      />
+                    ))
+                : null}
             </div>
-          ) : (
-            <p className="text-center p-2">Post not found.</p>
           )}
         </div>
       </div>

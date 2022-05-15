@@ -22,7 +22,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
   );
 
   return (
-    <div className="flex flex-col  bg-dark absolute right-1.5 w-max rounded shadow-dark shadow-lg">
+    <div className="flex flex-col  bg-dark absolute right-1.5 w-max rounded shadow-dark shadow-lg border border-darkGrey">
       {username === user.username ? (
         <>
           <button
@@ -68,7 +68,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
 
       {showNewPostModal ? (
         <div
-          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center"
+          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           <NewPost post={post} setShowOptions={setShowOptions} />

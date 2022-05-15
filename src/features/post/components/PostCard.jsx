@@ -6,6 +6,7 @@ import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark, removeBookmark } from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import { likedByLoggedUser, postInBookmarks } from "utils";
+import { CommentModal } from "features/post";
 
 export const PostCard = ({ post }) => {
   const { user, token } = useSelector((state) => state.auth);
@@ -14,12 +15,12 @@ export const PostCard = ({ post }) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
-  const [showOptions, setShowOptions] = useState(false);
   const postRef = useRef();
 
-  const currentPost = posts?.find((dbPost) => dbPost._id === post._id);
+  const [showOptions, setShowOptions] = useState(false);
+  const [showCommentModal, setShowCommentModal] = useState(false);
 
+  const currentPost = posts?.find((dbPost) => dbPost._id === post._id);
   const { _id, username, fullName, content, id, likes } = currentPost;
 
   const currentUser = users?.find(
@@ -100,9 +101,20 @@ export const PostCard = ({ post }) => {
             )}
           </div>
 
-          <button className="cursor-pointer hover:bg-dark hover:rounded-full">
-            <i className="fa-regular fa-message p-2"></i>
-          </button>
+          <div>
+            <button
+              className="cursor-pointer hover:bg-dark hover:rounded-full"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowCommentModal(true);
+              }}
+            >
+              <i className="fa-regular fa-message p-2"></i>
+            </button>
+            {currentPost.comments.length > 0 && (
+              <span className="ml-1">{currentPost.comments.length}</span>
+            )}
+          </div>
 
           <button
             className="cursor-pointer hover:bg-dark hover:rounded-full"
@@ -123,6 +135,18 @@ export const PostCard = ({ post }) => {
           </button>
         </div>
       </div>
+
+      {showCommentModal ? (
+        <div
+          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center cursor-default"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <CommentModal
+            setShowCommentModal={setShowCommentModal}
+            postId={currentPost?._id}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };
