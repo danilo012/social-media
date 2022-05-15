@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setActiveSort } from "features/post";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 
-export const FilterBar = () => {
+export const SortBar = () => {
   const [showSortModal, setShowSortModal] = useState(false);
 
   const { activeSort } = useSelector((state) => state.post);

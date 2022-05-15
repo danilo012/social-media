@@ -3,5 +3,7 @@ export { Sidebar } from "./Sidebar/Sidebar";
 export { ResetScroll } from "./ResetScroll/ResetScroll";
 export { UserAvatar } from "./UserAvatar/UserAvatar";
 export { SuggestedUsers } from "./SuggestedUsers/SuggestedUsers";
-export { FilterBar } from "./SortBar/SortBar";
+export { SortBar } from "./SortBar/SortBar";
 export { ToastWrapper } from "./ToastWrapper/ToastWrapper";
+export { SearchBar } from "./SearchBar/SearchBar";
+export { SearchedUsersModal } from "./SearchedUsersModal/SearchedUsersModal";

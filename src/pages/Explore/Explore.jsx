@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader, Sidebar, SuggestedUsers } from "components";
+import { Loader, Sidebar, SuggestedUsers, SearchBar } from "components";
 import { getPosts, PostCard } from "features/post";
 import { getAllUsers } from "features/user";
 
@@ -35,7 +35,10 @@ export const Explore = () => {
         </div>
       </div>
 
-      <SuggestedUsers />
+      <div>
+        <SearchBar />
+        <SuggestedUsers />
+      </div>
     </div>
   );
 };

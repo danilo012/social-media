@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FilterBar, Loader, Sidebar, SuggestedUsers } from "components";
+import {
+  SortBar,
+  Loader,
+  Sidebar,
+  SuggestedUsers,
+  SearchBar,
+} from "components";
 import { NewPost, getPosts, PostCard } from "features/post";
 import { getAllUsers } from "features/user";
 import { sortByDate } from "utils";
@@ -44,7 +50,7 @@ export const Home = () => {
         <div>
           <NewPost />
 
-          <FilterBar />
+          <SortBar />
 
           <div>
             {isLoading ? (
@@ -60,7 +66,10 @@ export const Home = () => {
         </div>
       </div>
 
-      <SuggestedUsers />
+      <div>
+        <SearchBar />
+        <SuggestedUsers />
+      </div>
     </div>
   );
 };

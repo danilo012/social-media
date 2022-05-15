@@ -9,6 +9,7 @@ import {
   updateProfileService,
 } from "services";
 import toast from "react-hot-toast";
+import { getSearchedUser } from "utils";
 
 export const getAllUsers = createAsyncThunk(
   "user/getAllUsers",
@@ -134,10 +135,22 @@ const updateFollowedUser = (users, followedUser) => {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: { users: [], bookmarks: [], isLoading: false, error: "" },
+  initialState: {
+    users: [],
+    bookmarks: [],
+    searchVal: "",
+    searchResult: [],
+    isLoading: false,
+    error: "",
+  },
+
   reducers: {
     setLoading: (state) => {
       state.isLoading = true;
+    },
+    setSearchVal: (state, { payload }) => {
+      state.searchVal = payload;
+      state.searchResult = getSearchedUser(state.users, payload);
     },
   },
 
@@ -181,5 +194,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setLoading } = userSlice.actions;
+export const { setLoading, setSearchVal } = userSlice.actions;
 export default userSlice.reducer;

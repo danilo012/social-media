@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Sidebar, Loader, SuggestedUsers } from "components";
+import { Sidebar, Loader, SuggestedUsers, SearchBar } from "components";
 import { ProfileDetails, getAllUsers } from "features/user";
 import { getPosts, PostCard } from "features/post";
 import { useEffect } from "react";
@@ -52,7 +52,10 @@ export const UserProfile = () => {
         )}
       </div>
 
-      <SuggestedUsers />
+      <div>
+        <SearchBar />
+        <SuggestedUsers />
+      </div>
     </div>
   );
 };

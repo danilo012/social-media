@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Loader, Sidebar, SuggestedUsers, UserAvatar } from "components";
+import {
+  Loader,
+  Sidebar,
+  SuggestedUsers,
+  SearchBar,
+  UserAvatar,
+} from "components";
 import {
   PostOptionsModal,
   likePost,
@@ -275,7 +281,10 @@ export const SinglePost = () => {
         ) : null}
       </div>
 
-      <SuggestedUsers />
+      <div>
+        <SearchBar />
+        <SuggestedUsers />
+      </div>
     </div>
   );
 };
