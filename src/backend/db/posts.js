@@ -33,7 +33,7 @@ export const posts = [
     },
     username: "himadri_shah",
     fullName: "Himadri Shah",
-    createdAt: "2023-05-15",
+    createdAt: "2021-05-10",
     updatedAt: formatDate(),
     comments: [
       {
@@ -44,7 +44,7 @@ export const posts = [
         username: "Nikhil_Belide",
         profileAvatar:
           "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
-        createdAt: formatDate(),
+        createdAt: "2021-05-10",
         updatedAt: formatDate(),
         votes: {
           upvotedBy: [],
@@ -94,7 +94,7 @@ export const posts = [
     },
     username: "Nikhil_Belide",
     fullName: "Nikhil_Belide",
-    createdAt: "2024-05-03",
+    createdAt: "2021-05-03",
     updatedAt: formatDate(),
     comments: [],
   },

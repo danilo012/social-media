@@ -18,7 +18,12 @@ import {
   FollowListModal,
 } from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { likedByLoggedUser, postInBookmarks, focusInput } from "utils";
+import {
+  likedByLoggedUser,
+  postInBookmarks,
+  focusInput,
+  getPostDate,
+} from "utils";
 
 export const SinglePost = () => {
   const { postId } = useParams();
@@ -92,18 +97,24 @@ export const SinglePost = () => {
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between">
                     <div
-                      className="flex flex-col cursor-pointer"
+                      className="flex gap-2"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/profile/${currentPost?.username}`);
                       }}
                     >
-                      <span className="font-bold tracking-wide">
-                        {currentPost?.fullName}
-                      </span>
-                      <span className="text-lightGrey -mt-1">
-                        @{currentPost?.username}
-                      </span>
+                      <div className="flex flex-col cursor-pointer">
+                        <span className="font-bold tracking-wide">
+                          {currentPost?.fullName}
+                        </span>
+                        <span className="text-lightGrey -mt-1">
+                          @{currentPost?.username}
+                        </span>
+                      </div>
+                      <span className="text-lightGrey">·</span>
+                      <div className="text-lightGrey">
+                        {getPostDate(currentPost?.createdAt)}
+                      </div>
                     </div>
 
                     <div className="relative">
