@@ -48,16 +48,6 @@ export const Sidebar = () => {
 
         <li>
           <NavLink
-            to="/notifications"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-            className="p-3 w-max hover:bg-darkSecondary hover:rounded-full"
-          >
-            <i className="fa-solid fa-bell pr-2"></i> Notifications
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink
             to="/bookmarks"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
             className="p-3 w-max hover:bg-darkSecondary hover:rounded-full"
