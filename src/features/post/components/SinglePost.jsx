@@ -11,9 +11,14 @@ import {
   CommentCard,
   addComment,
 } from "features/post";
-import { addBookmark, removeBookmark, getAllUsers } from "features/user";
+import {
+  addBookmark,
+  removeBookmark,
+  getAllUsers,
+  FollowListModal,
+} from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { likedByLoggedUser, postInBookmarks } from "utils";
+import { likedByLoggedUser, postInBookmarks, focusInput } from "utils";
 
 export const SinglePost = () => {
   const { postId } = useParams();
@@ -30,8 +35,10 @@ export const SinglePost = () => {
 
   const [showOptions, setShowOptions] = useState(false);
   const [comment, setComment] = useState("");
+  const [showLikesModal, setShowLikesModal] = useState(false);
 
   const postRef = useRef();
+  const newCommentRef = useRef();
 
   const currentUser = users?.find(
     (dbUser) => dbUser.username === currentPost?.username
@@ -49,12 +56,6 @@ export const SinglePost = () => {
   }, [posts, postId, dispatch]);
 
   useOnClickOutside(postRef, setShowOptions);
-
-  const newCommentRef = useRef();
-
-  const focusInput = () => {
-    newCommentRef.current && newCommentRef.current.focus();
-  };
 
   return (
     <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
@@ -74,7 +75,7 @@ export const SinglePost = () => {
             <Loader />
           ) : (
             <div
-              className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
+              className="flex flex-col gap-1 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
               ref={postRef}
             >
               <div className="grid grid-cols-[2rem_1fr] gap-2 ">
@@ -127,7 +128,19 @@ export const SinglePost = () => {
                 </div>
               </div>
 
-              <div className="flex justify-evenly gap-6  pt-2 mt-2 border-t border-darkGrey">
+              {currentPost?.likes.likeCount > 0 ? (
+                <button
+                  className="border-t border-darkGrey text-left pt-2 mt-2 cursor-pointer hover:underline"
+                  onClick={() => setShowLikesModal(true)}
+                >
+                  <span className="text-bold">
+                    {currentPost?.likes.likeCount}
+                  </span>{" "}
+                  <span className="text-grey">Likes</span>
+                </button>
+              ) : null}
+
+              <div className="flex justify-evenly gap-6 pt-1 mt-1 border-t border-darkGrey">
                 <div>
                   <button
                     className="cursor-pointer hover:bg-dark hover:rounded-full"
@@ -153,7 +166,7 @@ export const SinglePost = () => {
                 <div>
                   <button
                     className="cursor-pointer hover:bg-dark hover:rounded-full"
-                    onClick={focusInput}
+                    onClick={() => focusInput(newCommentRef)}
                   >
                     <i className="fa-regular fa-message p-2 "></i>
                   </button>
@@ -237,6 +250,18 @@ export const SinglePost = () => {
             </div>
           )}
         </div>
+
+        {showLikesModal ? (
+          <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center">
+            <FollowListModal
+              followModal={{
+                title: "Liked By",
+                list: currentPost?.likes.likedBy,
+              }}
+              setFollowModal={setShowLikesModal}
+            />
+          </div>
+        ) : null}
       </div>
 
       <SuggestedUsers />
