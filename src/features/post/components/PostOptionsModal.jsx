@@ -18,7 +18,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
   const userToFollow = users.find((dbUser) => dbUser.username === username);
 
   const userAlreadyFollowing = userToFollow.followers.find(
-    (follower) => follower.id === user.id
+    (follower) => follower.username === user.username
   );
 
   return (
@@ -55,6 +55,7 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
                   unfollowUser({ token, followUserId: userToFollow._id })
                 )
               : dispatch(followUser({ token, followUserId: userToFollow._id }));
+            setShowOptions(false);
           }}
         >
           <i

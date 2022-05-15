@@ -6,15 +6,31 @@ import { getAllUsers } from "features/user";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  let { posts, isLoading } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
+  const { posts, isLoading } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getAllUsers());
   }, [dispatch]);
 
+  const loggedInUser = users.find(
+    (dbUser) => dbUser.username === user.username
+  );
+
+  const followingUsers = loggedInUser?.following;
+
+  const postOfFollowingUsers = posts?.filter((post) =>
+    followingUsers?.some(
+      (followingUser) =>
+        followingUser.username === post.username ||
+        user.username === post.username
+    )
+  );
+
   return (
-    <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
+    <div className="grid grid-cols-[13rem_1fr_18rem] w-[80%] m-auto">
       <Sidebar />
 
       <div className="border-x border-darkGrey">
@@ -28,8 +44,8 @@ export const Home = () => {
           <div>
             {isLoading ? (
               <Loader />
-            ) : posts.length ? (
-              [...posts]
+            ) : postOfFollowingUsers?.length ? (
+              [...postOfFollowingUsers]
                 .reverse()
                 .map((post) => <PostCard post={post} key={post._id} />)
             ) : (

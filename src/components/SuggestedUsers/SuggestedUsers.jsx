@@ -22,7 +22,7 @@ export const SuggestedUsers = () => {
   return (
     <>
       {filteredUsers.length ? (
-        <div className="flex flex-col justify-center gap-4 m-4 px-4 py-3 sticky top-4 rounded-md bg-darkSecondary h-max w-max">
+        <div className="flex flex-col justify-center gap-4 m-4 px-4 py-3 sticky top-4 rounded-md bg-darkSecondary h-max w-full">
           <div className="text-lg font-bold tracking-wide">Who To Follow</div>
 
           {filteredUsers.map((user) => (
