@@ -33,7 +33,7 @@ export const posts = [
     },
     username: "himadri_shah",
     fullName: "Himadri Shah",
-    createdAt: formatDate(),
+    createdAt: "2023-05-15",
     updatedAt: formatDate(),
     comments: [
       {
@@ -58,8 +58,23 @@ export const posts = [
     content:
       "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 2,
+      likedBy: [
+        {
+          _id: uuid(),
+          fullName: "Himadri Shah",
+          username: "himadri_shah",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
+        },
+        {
+          _id: uuid(),
+          fullName: "John Doe",
+          username: "john_doe",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
+        },
+      ],
       dislikedBy: [],
     },
     username: "shubhamsoni",
@@ -79,7 +94,7 @@ export const posts = [
     },
     username: "Nikhil_Belide",
     fullName: "Nikhil_Belide",
-    createdAt: formatDate(),
+    createdAt: "2024-05-03",
     updatedAt: formatDate(),
     comments: [],
   },
@@ -88,8 +103,23 @@ export const posts = [
     content:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 2,
+      likedBy: [
+        {
+          _id: uuid(),
+          fullName: "Shubham Soni",
+          username: "shubhamsoni",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
+        },
+        {
+          _id: uuid(),
+          fullName: "Nikhil_Belide",
+          username: "Nikhil_Belide",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
+        },
+      ],
       dislikedBy: [],
     },
     username: "john_doe",
@@ -119,8 +149,16 @@ export const posts = [
     content:
       "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 1,
+      likedBy: [
+        {
+          _id: uuid(),
+          fullName: "Shubham Soni",
+          username: "shubhamsoni",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
+        },
+      ],
       dislikedBy: [],
     },
     username: "Nikhil_Belide",
@@ -150,8 +188,30 @@ export const posts = [
     content:
       "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint ",
     likes: {
-      likeCount: 0,
-      likedBy: [],
+      likeCount: 3,
+      likedBy: [
+        {
+          _id: uuid(),
+          fullName: "John Doe",
+          username: "john_doe",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
+        },
+        {
+          _id: uuid(),
+          fullName: "Shubham Soni",
+          username: "shubhamsoni",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
+        },
+        {
+          _id: uuid(),
+          fullName: "Nikhil_Belide",
+          username: "Nikhil_Belide",
+          profileAvatar:
+            "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
+        },
+      ],
       dislikedBy: [],
     },
     username: "himadri_shah",

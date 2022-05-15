@@ -12,6 +12,7 @@ export {
   getPosts,
   getSinglePost,
   resetSinglePost,
+  setActiveSort,
   createPost,
   deletePost,
   editPost,
