@@ -214,7 +214,8 @@ export const SinglePost = () => {
                   />
 
                   <button
-                    className="bg-primary rounded-full py-1 px-3"
+                    className="bg-primary rounded-full py-1 px-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!comment.trim()}
                     type="submit"
                   >
                     Reply
