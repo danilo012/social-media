@@ -11,6 +11,7 @@ import {
   editCommentService,
   deleteCommentService,
 } from "services";
+import toast from "react-hot-toast";
 
 export const getPosts = createAsyncThunk(
   "post/getPosts",
@@ -51,6 +52,7 @@ export const createPost = createAsyncThunk(
       const { data, status } = await createPostService({ input, token, user });
 
       if (status === 201) {
+        toast.success("Post added");
         return data.posts;
       }
     } catch {

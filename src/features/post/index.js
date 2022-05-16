@@ -2,6 +2,7 @@ import { postSlice } from "./postSlice";
 
 export { NewPost } from "./components/NewPost";
 export { PostCard } from "./components/PostCard";
+export { PostModal } from "./components/PostModal";
 export { PostOptionsModal } from "./components/PostOptionsModal";
 export { SinglePost } from "./components/SinglePost";
 export { CommentModal } from "./components/CommentModal";

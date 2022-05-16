@@ -254,8 +254,8 @@ export const SinglePost = () => {
               </div>
 
               {currentPost?.comments.length > 0
-                ? [...currentPost.comments]
-                    .reverse()
+                ? [...currentPost?.comments]
+                    ?.reverse()
                     .map((comment) => (
                       <CommentCard
                         comment={comment}
@@ -269,7 +269,7 @@ export const SinglePost = () => {
         </div>
 
         {showLikesModal ? (
-          <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center">
+          <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-40 flex justify-center items-center">
             <FollowListModal
               followModal={{
                 title: "Liked By",

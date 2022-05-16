@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Sidebar, Loader, SuggestedUsers, SearchBar } from "components";
 import { ProfileDetails, getAllUsers } from "features/user";
 import { getPosts, PostCard } from "features/post";
-import { useEffect } from "react";
 
 export const UserProfile = () => {
   const { username } = useParams();
@@ -44,9 +44,9 @@ export const UserProfile = () => {
         {isLoading ? (
           <Loader />
         ) : currentUserPosts?.length ? (
-          currentUserPosts?.map((post) => (
-            <PostCard post={post} key={post._id} />
-          ))
+          [...currentUserPosts]
+            ?.reverse()
+            .map((post) => <PostCard post={post} key={post._id} />)
         ) : (
           <p className="p-4 text-center">No posts to show.</p>
         )}

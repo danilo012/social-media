@@ -142,13 +142,13 @@ export const ProfileDetails = ({ currentUser }) => {
       </div>
 
       {editModal ? (
-        <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center">
+        <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-40 flex justify-center items-center">
           <EditProfileModal setEditModal={setEditModal} />
         </div>
       ) : null}
 
       {followModal.show ? (
-        <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center">
+        <div className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-40 flex justify-center items-center">
           <FollowListModal
             followModal={followModal}
             setFollowModal={setFollowModal}

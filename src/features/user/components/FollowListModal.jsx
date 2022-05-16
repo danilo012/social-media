@@ -7,7 +7,7 @@ export const FollowListModal = ({ followModal, setFollowModal }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-darkSecondary text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto">
+    <div className="bg-darkSecondary text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto mx-4">
       <div className="flex justify-between items-center mb-4">
         <div className="text-xl">{title}</div>
         <button

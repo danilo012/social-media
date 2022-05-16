@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader, Sidebar, SuggestedUsers, SearchBar } from "components";
 import { PostCard } from "features/post";
-import { getBookmarks } from "features/user";
+import { getBookmarks, getAllUsers } from "features/user";
 
 export const Bookmarks = () => {
   const { token } = useSelector((state) => state.auth);
@@ -13,6 +13,7 @@ export const Bookmarks = () => {
 
   useEffect(() => {
     dispatch(getBookmarks(token));
+    dispatch(getAllUsers());
   }, [dispatch, token]);
 
   const bookmarkedPosts = posts.filter((dbPost) =>

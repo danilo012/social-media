@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserAvatar } from "components";
+import { PostModal } from "features/post";
 
 const activeStyle = {
   backgroundColor: "#001e39",
@@ -15,6 +17,8 @@ export const Sidebar = () => {
   const { users } = useSelector((state) => state.user);
 
   const currentUser = users.find((dbUser) => dbUser.username === user.username);
+
+  const [showNewPostModal, setShowNewPostModal] = useState(false);
 
   return (
     <aside className="sm:sticky bg-dark  flex sm:flex-col sm:justify-between sm:h-screen sm:top-0 sm:overflow-y-auto overflow-x-hidden fixed bottom-0 left-0 w-full items-center  sm:border-0 border-t-2 border-darkGrey sm:z-0 z-40">
@@ -58,6 +62,17 @@ export const Sidebar = () => {
             <span className="hidden lg:inline">Bookmarks</span>
           </NavLink>
         </li>
+
+        <li className="px-1 lg:p-0 w-max lg:w-full">
+          <button
+            to="/bookmarks"
+            className="bg-primary rounded-full w-max lg:w-full py-2 px-3 lg:px-3 bottom-20 right-4 fixed sm:static"
+            onClick={() => setShowNewPostModal(true)}
+          >
+            <i className="fa-solid fa-plus lg:pr-2"></i>
+            <span className="hidden lg:inline">New Post</span>
+          </button>
+        </li>
       </ul>
 
       <ul className="tracking-wide pr-2">
@@ -78,6 +93,15 @@ export const Sidebar = () => {
           </NavLink>
         </li>
       </ul>
+
+      {showNewPostModal ? (
+        <div
+          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-40 flex justify-center items-center cursor-default"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <PostModal setShowNewPostModal={setShowNewPostModal} />
+        </div>
+      ) : null}
     </aside>
   );
 };
