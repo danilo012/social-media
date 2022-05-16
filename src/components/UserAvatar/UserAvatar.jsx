@@ -13,7 +13,7 @@ export const UserAvatar = ({ user }) => {
         <img
           src={avatar}
           alt={user.username}
-          className="h-8 w-8 rounded-full"
+          className="h-6 w-6 sm:h-8 sm:w-8 rounded-full"
         />
       ) : (
         <span className="h-8 w-8 text-sm flex justify-center items-center rounded-full bg-primary">

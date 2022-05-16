@@ -36,7 +36,7 @@ export const ProfileDetails = ({ currentUser }) => {
   );
 
   return (
-    <div className="profile-details p-4 grid grid-cols-[7rem_1fr] gap-3 border-b border-darkGrey">
+    <div className="profile-details p-4 grid sm:grid-cols-[7rem_1fr] gap-3 border-b border-darkGrey">
       {isLoading ? <Loader /> : <UserAvatar user={currentUser} />}
 
       <div className="flex flex-col grow gap-3">
@@ -47,7 +47,7 @@ export const ProfileDetails = ({ currentUser }) => {
               <span className="text-sm text-lightGrey">@{username}</span>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center flex-col sm:flex-row gap-2">
               {id === user.id ? (
                 <>
                   <button
@@ -58,6 +58,7 @@ export const ProfileDetails = ({ currentUser }) => {
                   </button>
                   <button
                     title="Logout"
+                    className="ml-auto"
                     onClick={() => dispatch(logoutHandler())}
                   >
                     <i className="fa-solid fa-sign-out"></i>

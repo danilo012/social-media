@@ -25,17 +25,19 @@ export const CommentCard = ({ comment, postId }) => {
         <UserAvatar user={comment} />
       </div>
 
-      <div className="flex flex-col break-all">
+      <div className="flex flex-col gap-1 break-all">
         <div className="flex justify-between ">
           <div
-            className="flex items-center gap-1 cursor-pointer"
+            className="flex items-start 2xl:items-center gap-1 cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/profile/${username}`);
             }}
           >
-            <span className="font-bold tracking-wide">{fullName}</span>
-            <span className="text-lightGrey">@{username}</span>
+            <div className="flex flex-col gap-0 2xl:flex-row 2xl:gap-1">
+              <span className="font-bold tracking-wide">{fullName}</span>
+              <span className="text-lightGrey">@{username}</span>
+            </div>
             <span className="text-lightGrey">·</span>
             <div className="text-lightGrey">{getPostDate(createdAt)}</div>
           </div>

@@ -69,10 +69,10 @@ export const SinglePost = () => {
   useOnClickOutside(postRef, setShowOptions);
 
   return (
-    <div className="grid grid-cols-[13rem_3fr_1fr] w-[80%] m-auto">
+    <div className="grid sm:grid-cols-[5rem_1fr] lg:grid-cols-[15rem_1fr] xl:grid-cols-[13rem_1fr_18rem] w-[100%] lg:w-[80%] mb-16 sm:m-auto">
       <Sidebar />
 
-      <div className="border-x border-darkGrey">
+      <div className="sm:border-x border-darkGrey">
         <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10">
           <i
             className="fa-solid fa-arrow-left mr-4 cursor-pointer"
@@ -86,7 +86,7 @@ export const SinglePost = () => {
             <Loader />
           ) : (
             <div
-              className="flex flex-col gap-1 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
+              className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
               ref={postRef}
             >
               <div className="grid grid-cols-[2rem_1fr] gap-2 ">
@@ -157,7 +157,7 @@ export const SinglePost = () => {
                 </button>
               ) : null}
 
-              <div className="flex justify-evenly gap-6 pt-1 mt-1 border-t border-darkGrey">
+              <div className="flex justify-evenly gap-6 pt-1 mt-1 -mb-1 border-t border-darkGrey">
                 <div>
                   <button
                     className="cursor-pointer hover:bg-dark hover:rounded-full"
@@ -238,13 +238,13 @@ export const SinglePost = () => {
                     required
                     ref={newCommentRef}
                     placeholder="Post your reply"
-                    className="outline-none bg-inherit grow"
+                    className="outline-none bg-inherit w-full"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                   />
 
                   <button
-                    className="bg-primary rounded-full py-1 px-3 ml-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-primary rounded-full py-1 px-3 ml-4 disabled:opacity-50 disabled:cursor-not-allowed w-[5.2rem]"
                     disabled={!comment.trim()}
                     type="submit"
                   >
@@ -281,7 +281,7 @@ export const SinglePost = () => {
         ) : null}
       </div>
 
-      <div>
+      <div className="hidden xl:block">
         <SearchBar />
         <SuggestedUsers />
       </div>
