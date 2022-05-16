@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
 import { createPost, editPost } from "features/post";
+import { focusInput } from "utils";
 
 export const NewPost = ({ post, setShowOptions }) => {
   const [input, setInput] = useState("");
@@ -35,10 +36,6 @@ export const NewPost = ({ post, setShowOptions }) => {
     if (post) newPostRef.current.innerText = post.content;
   }, [post]);
 
-  const focusInput = () => {
-    newPostRef.current && newPostRef.current.focus();
-  };
-
   return (
     <div
       className={`grid grid-cols-[2rem_1fr] gap-2 items-start bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text ${
@@ -46,7 +43,7 @@ export const NewPost = ({ post, setShowOptions }) => {
       }`}
       onClick={(e) => {
         e.stopPropagation();
-        focusInput();
+        focusInput(newPostRef);
       }}
     >
       <UserAvatar user={currentUser} />

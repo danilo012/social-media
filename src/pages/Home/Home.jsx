@@ -1,14 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader, Sidebar, SuggestedUsers } from "components";
+import {
+  SortBar,
+  Loader,
+  Sidebar,
+  SuggestedUsers,
+  SearchBar,
+} from "components";
 import { NewPost, getPosts, PostCard } from "features/post";
 import { getAllUsers } from "features/user";
+import { sortByDate } from "utils";
 
 export const Home = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { users } = useSelector((state) => state.user);
-  const { posts, isLoading } = useSelector((state) => state.post);
+  const { posts, isLoading, activeSort } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -29,6 +36,8 @@ export const Home = () => {
     )
   );
 
+  const sortedPosts = sortByDate(postOfFollowingUsers, activeSort);
+
   return (
     <div className="grid grid-cols-[13rem_1fr_18rem] w-[80%] m-auto">
       <Sidebar />
@@ -41,11 +50,13 @@ export const Home = () => {
         <div>
           <NewPost />
 
+          <SortBar />
+
           <div>
             {isLoading ? (
               <Loader />
-            ) : postOfFollowingUsers?.length ? (
-              [...postOfFollowingUsers]
+            ) : sortedPosts?.length ? (
+              [...sortedPosts]
                 .reverse()
                 .map((post) => <PostCard post={post} key={post._id} />)
             ) : (
@@ -55,7 +66,10 @@ export const Home = () => {
         </div>
       </div>
 
-      <SuggestedUsers />
+      <div>
+        <SearchBar />
+        <SuggestedUsers />
+      </div>
     </div>
   );
 };

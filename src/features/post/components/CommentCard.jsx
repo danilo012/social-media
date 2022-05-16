@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserAvatar } from "components";
 import { CommentOptionsModal } from "features/post";
+import { getPostDate } from "utils";
 
 export const CommentCard = ({ comment, postId }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
-  const { username, fullName, comment: commentText } = comment;
+  const { username, fullName, createdAt, comment: commentText } = comment;
   const [showOptions, setShowOptions] = useState(false);
 
   const loggedInUser = user.username === username;
@@ -35,6 +36,8 @@ export const CommentCard = ({ comment, postId }) => {
           >
             <span className="font-bold tracking-wide">{fullName}</span>
             <span className="text-lightGrey">@{username}</span>
+            <span className="text-lightGrey">·</span>
+            <div className="text-lightGrey">{getPostDate(createdAt)}</div>
           </div>
 
           {loggedInUser ? (

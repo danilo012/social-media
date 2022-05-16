@@ -174,10 +174,20 @@ export const deleteComment = createAsyncThunk(
 
 export const postSlice = createSlice({
   name: "post",
-  initialState: { posts: [], singlePost: null, isLoading: false, error: "" },
+  initialState: {
+    posts: [],
+    singlePost: null,
+    activeSort: "Latest",
+    isLoading: false,
+    error: "",
+  },
   reducers: {
     resetSinglePost: (state) => {
       state.singlePost = null;
+    },
+
+    setActiveSort: (state, { payload }) => {
+      state.activeSort = payload;
     },
   },
 
@@ -252,5 +262,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const { resetSinglePost } = postSlice.actions;
+export const { resetSinglePost, setActiveSort } = postSlice.actions;
 export default postSlice.reducer;

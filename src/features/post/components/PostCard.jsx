@@ -5,7 +5,7 @@ import { UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark, removeBookmark } from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { likedByLoggedUser, postInBookmarks } from "utils";
+import { likedByLoggedUser, postInBookmarks, getPostDate } from "utils";
 import { CommentModal } from "features/post";
 
 export const PostCard = ({ post }) => {
@@ -21,7 +21,8 @@ export const PostCard = ({ post }) => {
   const [showCommentModal, setShowCommentModal] = useState(false);
 
   const currentPost = posts?.find((dbPost) => dbPost._id === post._id);
-  const { _id, username, fullName, content, id, likes } = currentPost;
+  const { _id, username, fullName, content, id, likes, createdAt } =
+    currentPost;
 
   const currentUser = users?.find(
     (dbUser) => dbUser.username === post.username
@@ -47,7 +48,7 @@ export const PostCard = ({ post }) => {
       <div className="flex flex-col gap-1 break-all">
         <div className="flex justify-between ">
           <div
-            className="flex items-center gap-1"
+            className="flex items-center gap-1.5"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/profile/${username}`);
@@ -55,6 +56,8 @@ export const PostCard = ({ post }) => {
           >
             <span className="font-bold tracking-wide">{fullName}</span>
             <span className="text-lightGrey">@{username}</span>
+            <span className="text-lightGrey">·</span>
+            <div className="text-lightGrey">{getPostDate(createdAt)}</div>
           </div>
 
           <div className="relative">
