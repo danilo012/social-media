@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Sidebar, Loader, SuggestedUsers, SearchBar } from "components";
 import { ProfileDetails, getAllUsers } from "features/user";
 import { getPosts, PostCard } from "features/post";
-import { useEffect } from "react";
 
 export const UserProfile = () => {
   const { username } = useParams();
@@ -22,10 +22,10 @@ export const UserProfile = () => {
   }, [dispatch]);
 
   return (
-    <div className="grid grid-cols-[13rem_1fr_18rem] w-[80%] m-auto">
+    <div className="grid sm:grid-cols-[5rem_1fr] lg:grid-cols-[15rem_1fr] xl:grid-cols-[13rem_1fr_18rem] w-[100%] lg:w-[80%] mb-16 sm:m-auto">
       <Sidebar />
 
-      <div className="border-x border-darkGrey">
+      <div className="sm:border-x border-darkGrey">
         <h1 className="flex items-center px-4 py-2 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10 border-b border-darkGrey">
           <i
             className="fa-solid fa-arrow-left mr-4 cursor-pointer"
@@ -44,15 +44,15 @@ export const UserProfile = () => {
         {isLoading ? (
           <Loader />
         ) : currentUserPosts?.length ? (
-          currentUserPosts?.map((post) => (
-            <PostCard post={post} key={post._id} />
-          ))
+          [...currentUserPosts]
+            ?.reverse()
+            .map((post) => <PostCard post={post} key={post._id} />)
         ) : (
           <p className="p-4 text-center">No posts to show.</p>
         )}
       </div>
 
-      <div>
+      <div className="hidden xl:block">
         <SearchBar />
         <SuggestedUsers />
       </div>

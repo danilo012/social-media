@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { deletePost, NewPost } from "features/post";
+import { deletePost, PostModal } from "features/post";
 import { followUser, unfollowUser } from "features/user";
 
 export const PostOptionsModal = ({ post, setShowOptions }) => {
@@ -69,10 +69,14 @@ export const PostOptionsModal = ({ post, setShowOptions }) => {
 
       {showNewPostModal ? (
         <div
-          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center cursor-default"
+          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-40 flex justify-center items-center cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
-          <NewPost post={post} setShowOptions={setShowOptions} />
+          <PostModal
+            post={post}
+            setShowOptions={setShowOptions}
+            setShowNewPostModal={setShowNewPostModal}
+          />
         </div>
       ) : null}
     </div>

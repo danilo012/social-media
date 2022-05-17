@@ -48,14 +48,16 @@ export const PostCard = ({ post }) => {
       <div className="flex flex-col gap-1 break-all">
         <div className="flex justify-between ">
           <div
-            className="flex items-center gap-1.5"
+            className="flex items-start 2xl:items-center gap-1.5"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/profile/${username}`);
             }}
           >
-            <span className="font-bold tracking-wide">{fullName}</span>
-            <span className="text-lightGrey">@{username}</span>
+            <div className="flex flex-col gap-0 2xl:flex-row 2xl:gap-1">
+              <span className="font-bold tracking-wide">{fullName}</span>
+              <span className="text-lightGrey">@{username}</span>
+            </div>
             <span className="text-lightGrey">·</span>
             <div className="text-lightGrey">{getPostDate(createdAt)}</div>
           </div>
@@ -141,7 +143,7 @@ export const PostCard = ({ post }) => {
 
       {showCommentModal ? (
         <div
-          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-30 flex justify-center items-center cursor-default"
+          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-40 flex justify-center items-center cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           <CommentModal

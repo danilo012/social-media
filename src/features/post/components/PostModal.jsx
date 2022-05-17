@@ -1,11 +1,11 @@
 import "../styles.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
-import { createPost } from "features/post";
+import { createPost, editPost } from "features/post";
 import { focusInput } from "utils";
 
-export const NewPost = () => {
+export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
   const [input, setInput] = useState("");
 
   const { token, user } = useSelector((state) => state.auth);
@@ -21,15 +21,25 @@ export const NewPost = () => {
   const submitPost = (e) => {
     e.preventDefault();
 
-    dispatch(createPost({ input, token, user }));
+    if (post) {
+      dispatch(editPost({ input, token, post }));
+      setShowOptions(false);
+    } else {
+      dispatch(createPost({ input, token, user }));
+    }
 
     setInput("");
+    setShowNewPostModal(false);
     newPostRef.current.innerText = "";
   };
 
+  useEffect(() => {
+    if (post) newPostRef.current.innerText = post.content;
+  }, [post]);
+
   return (
     <div
-      className="grid grid-cols-[2rem_1fr] gap-2 items-start bg-darkSecondary text-sm  border-b border-darkGrey px-4 py-3 cursor-text"
+      className="grid grid-cols-[2rem_1fr] gap-2 items-start bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text w-[80%] sm:w-1/2 shadow-dark shadow-lg rounded border"
       onClick={(e) => {
         e.stopPropagation();
         focusInput(newPostRef);
@@ -49,11 +59,22 @@ export const NewPost = () => {
 
         <div className="ml-auto flex gap-2">
           <button
+            type="reset"
+            className="border border-primary rounded-full py-1 px-3"
+            onClick={() => {
+              setShowNewPostModal(false);
+              post && setShowOptions(false);
+            }}
+          >
+            Cancel
+          </button>
+
+          <button
             type="submit"
             className="bg-primary rounded-full py-1 px-3 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={!input.trim()}
+            disabled={!input.trim() || (post && input.trim() === post.content)}
           >
-            Post
+            {post ? "Save" : "Post"}
           </button>
         </div>
       </form>

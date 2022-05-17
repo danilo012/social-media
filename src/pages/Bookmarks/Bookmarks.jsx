@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader, Sidebar, SuggestedUsers, SearchBar } from "components";
 import { PostCard } from "features/post";
-import { getBookmarks } from "features/user";
+import { getBookmarks, getAllUsers } from "features/user";
 
 export const Bookmarks = () => {
   const { token } = useSelector((state) => state.auth);
@@ -13,6 +13,7 @@ export const Bookmarks = () => {
 
   useEffect(() => {
     dispatch(getBookmarks(token));
+    dispatch(getAllUsers());
   }, [dispatch, token]);
 
   const bookmarkedPosts = posts.filter((dbPost) =>
@@ -20,12 +21,15 @@ export const Bookmarks = () => {
   );
 
   return (
-    <div className="grid grid-cols-[13rem_1fr_18rem] w-[80%] m-auto">
+    <div className="grid sm:grid-cols-[5rem_1fr] lg:grid-cols-[15rem_1fr] xl:grid-cols-[13rem_1fr_18rem] w-[100%] lg:w-[80%] mb-16 sm:m-auto">
       <Sidebar />
 
-      <div className="border-x border-darkGrey">
-        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10 border-b border-darkGrey">
+      <div className="sm:border-x border-darkGrey">
+        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10 border-b border-darkGrey flex justify-between">
           Bookmarks
+          <div className="block xl:hidden">
+            <SearchBar />
+          </div>
         </h1>
 
         <div>
@@ -43,7 +47,7 @@ export const Bookmarks = () => {
         </div>
       </div>
 
-      <div>
+      <div className="hidden xl:block">
         <SearchBar />
         <SuggestedUsers />
       </div>

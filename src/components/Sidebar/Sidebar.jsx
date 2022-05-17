@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserAvatar } from "components";
+import { PostModal } from "features/post";
 
 const activeStyle = {
   backgroundColor: "#001e39",
@@ -16,13 +18,15 @@ export const Sidebar = () => {
 
   const currentUser = users.find((dbUser) => dbUser.username === user.username);
 
+  const [showNewPostModal, setShowNewPostModal] = useState(false);
+
   return (
-    <aside className="sticky flex flex-col justify-between h-screen top-0 overflow-y-auto overflow-x-hidden px-3 py-4">
-      <ul className="flex flex-col gap-6 tracking-wide">
-        <li className="pb-3 px-3">
+    <aside className="sm:sticky bg-dark  flex sm:flex-col sm:justify-between sm:h-screen sm:top-0 sm:overflow-y-auto overflow-x-hidden fixed bottom-0 left-0 w-full items-center  sm:border-0 border-t-2 border-darkGrey sm:z-0 z-40">
+      <ul className="flex items-center sm:items-start justify-start px-3 py-4 sm:flex-col gap-3 sm:gap-6 tracking-wide grow">
+        <li className="sm:pb-3 sm:px-3 hidden sm:block">
           <Link to="/" className="flex items-center">
             <img src="/sapphire.svg" alt="Sapphire" className="h-6 w-6 mr-2" />
-            <span className="text-xl">Sapphire</span>
+            <span className="text-xl hidden lg:inline">Sapphire</span>
           </Link>
         </li>
 
@@ -32,7 +36,8 @@ export const Sidebar = () => {
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
             className="p-3 w-max hover:bg-darkSecondary hover:rounded-full"
           >
-            <i className="fa-solid fa-house pr-2"></i> Home
+            <i className="fa-solid fa-house px-0.5 lg:pr-2"></i>
+            <span className="hidden lg:inline">Home</span>
           </NavLink>
         </li>
 
@@ -42,7 +47,8 @@ export const Sidebar = () => {
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
             className="p-3 w-max hover:bg-darkSecondary hover:rounded-full"
           >
-            <i className="fa-solid fa-hashtag pr-2"></i> Explore
+            <i className="fa-solid fa-hashtag px-1 lg:pr-2"></i>
+            <span className="hidden lg:inline">Explore</span>
           </NavLink>
         </li>
 
@@ -52,12 +58,24 @@ export const Sidebar = () => {
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
             className="p-3 w-max hover:bg-darkSecondary hover:rounded-full"
           >
-            <i className="fa-solid fa-bookmark pr-2"></i> Bookmarks
+            <i className="fa-solid fa-bookmark px-1 lg:pr-2"></i>
+            <span className="hidden lg:inline">Bookmarks</span>
           </NavLink>
+        </li>
+
+        <li className="px-1 lg:p-0 w-max lg:w-full">
+          <button
+            to="/bookmarks"
+            className="bg-primary rounded-full w-max lg:w-full py-2 px-3 lg:px-3 bottom-20 right-4 fixed sm:static"
+            onClick={() => setShowNewPostModal(true)}
+          >
+            <i className="fa-solid fa-plus lg:pr-2"></i>
+            <span className="hidden lg:inline">New Post</span>
+          </button>
         </li>
       </ul>
 
-      <ul className="tracking-wide">
+      <ul className="tracking-wide pr-2">
         <li>
           <NavLink
             to={`/profile/${currentUser?.username}`}
@@ -66,7 +84,7 @@ export const Sidebar = () => {
           >
             <UserAvatar user={currentUser} />
 
-            <div className="text-sm">
+            <div className="text-sm hidden lg:inline">
               <p className="font-bold">{currentUser?.fullName}</p>
               <p className="text-lightGrey font-normal">
                 @{currentUser?.username}
@@ -75,6 +93,15 @@ export const Sidebar = () => {
           </NavLink>
         </li>
       </ul>
+
+      {showNewPostModal ? (
+        <div
+          className="bg-[#00000080] top-0 left-0 fixed w-full h-full z-40 flex justify-center items-center cursor-default"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <PostModal setShowNewPostModal={setShowNewPostModal} />
+        </div>
+      ) : null}
     </aside>
   );
 };

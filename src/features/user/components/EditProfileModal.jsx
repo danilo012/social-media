@@ -29,28 +29,24 @@ export const EditProfileModal = ({ setEditModal }) => {
     formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
     formData.append("folder", "sapphire");
 
-    if (Math.round(file.size / 1024000) > 1) {
-      toast.error("File size should not be more than 1Mb");
-    } else {
-      fetch(CLOUDINARY_URL, {
-        method: "POST",
-        body: formData,
+    fetch(CLOUDINARY_URL, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return dispatch(
+          updateProfile({
+            editInput: {
+              ...currentUser,
+              ...editInput,
+              profileAvatar: data.url,
+            },
+            token,
+          })
+        );
       })
-        .then((response) => response.json())
-        .then((data) => {
-          return dispatch(
-            updateProfile({
-              editInput: {
-                ...currentUser,
-                ...editInput,
-                profileAvatar: data.url,
-              },
-              token,
-            })
-          );
-        })
-        .catch((err) => console.error(err));
-    }
+      .catch((err) => console.error(err));
   };
 
   const editChangeHandler = (e) => {
@@ -71,7 +67,7 @@ export const EditProfileModal = ({ setEditModal }) => {
   };
 
   return (
-    <div className="bg-darkSecondary text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto">
+    <div className="bg-darkSecondary mx-4 text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto">
       <form className="flex flex-col gap-2.5" onSubmit={editFormHandler}>
         <div className="flex justify-between items-center ">
           <div className="flex items-center">
@@ -94,7 +90,11 @@ export const EditProfileModal = ({ setEditModal }) => {
           <input
             type="file"
             className="hidden"
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => {
+              Math.round(e.target.files[0].size / 1024000) > 1
+                ? toast.error("File size should not be more than 1Mb")
+                : setImage(e.target.files[0]);
+            }}
           />
 
           <UserAvatar
