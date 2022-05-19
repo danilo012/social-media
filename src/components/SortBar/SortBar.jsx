@@ -31,6 +31,7 @@ export const SortBar = () => {
               style={{ color: activeSort === "Trending" ? "#1d9bf0" : "" }}
               onClick={() => {
                 dispatch(setActiveSort("Trending"));
+                setShowSortModal(false);
               }}
             >
               <i className="fa-solid fa-arrow-trend-up pr-2"></i>Trending
@@ -39,6 +40,7 @@ export const SortBar = () => {
               style={{ color: activeSort === "Latest" ? "#1d9bf0" : "" }}
               onClick={() => {
                 dispatch(setActiveSort("Latest"));
+                setShowSortModal(false);
               }}
             >
               <i className="fa-solid fa-arrow-up pr-2"></i>Lastest
@@ -47,6 +49,7 @@ export const SortBar = () => {
               style={{ color: activeSort === "Oldest" ? "#1d9bf0" : "" }}
               onClick={() => {
                 dispatch(setActiveSort("Oldest"));
+                setShowSortModal(false);
               }}
             >
               <i className="fa-solid fa-arrow-down pr-2"></i>Oldest

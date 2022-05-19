@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserAvatar } from "components";
 import { CommentOptionsModal } from "features/post";
@@ -7,12 +6,9 @@ import { getPostDate } from "utils";
 
 export const CommentCard = ({ comment, postId }) => {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
 
   const { username, fullName, createdAt, comment: commentText } = comment;
   const [showOptions, setShowOptions] = useState(false);
-
-  const loggedInUser = user.username === username;
 
   return (
     <div className="grid grid-cols-[2rem_1fr] gap-2 pt-3 border-t border-darkGrey">
@@ -42,25 +38,23 @@ export const CommentCard = ({ comment, postId }) => {
             <div className="text-lightGrey">{getPostDate(createdAt)}</div>
           </div>
 
-          {loggedInUser ? (
-            <div className="relative">
-              <i
-                className="fa-solid fa-ellipsis p-2 cursor-pointer hover:bg-dark hover:rounded-full"
-                onClick={(e) => {
-                  setShowOptions((prev) => !prev);
-                  e.stopPropagation();
-                }}
-              ></i>
+          <div className="relative">
+            <i
+              className="fa-solid fa-ellipsis p-2 cursor-pointer hover:bg-dark hover:rounded-full"
+              onClick={(e) => {
+                setShowOptions((prev) => !prev);
+                e.stopPropagation();
+              }}
+            ></i>
 
-              {showOptions ? (
-                <CommentOptionsModal
-                  comment={comment}
-                  postId={postId}
-                  setShowOptions={setShowOptions}
-                />
-              ) : null}
-            </div>
-          ) : null}
+            {showOptions ? (
+              <CommentOptionsModal
+                comment={comment}
+                postId={postId}
+                setShowOptions={setShowOptions}
+              />
+            ) : null}
+          </div>
         </div>
 
         <div>{commentText}</div>
