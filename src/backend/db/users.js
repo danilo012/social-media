@@ -18,13 +18,37 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
-      { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
-      { _id: uuid(), fullName: "Nikhil_Belide", username: "Nikhil_Belide" },
+      {
+        _id: uuid(),
+        fullName: "Shubham Soni",
+        username: "shubhamsoni",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
+      },
+      {
+        _id: uuid(),
+        fullName: "Nikhil_Belide",
+        username: "Nikhil_Belide",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
+      },
     ],
     followers: [
       { _id: uuid(), fullName: "John Doe", username: "john_doe" },
-      { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
-      { _id: uuid(), fullName: "Nikhil_Belide", username: "Nikhil_Belide" },
+      {
+        _id: uuid(),
+        fullName: "Shubham Soni",
+        username: "shubhamsoni",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
+      },
+      {
+        _id: uuid(),
+        fullName: "Nikhil_Belide",
+        username: "Nikhil_Belide",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
+      },
     ],
   },
   {
@@ -39,11 +63,29 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
-      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
-      { _id: uuid(), fullName: "Nikhil_Belide", username: "Nikhil_Belide" },
+      {
+        _id: uuid(),
+        fullName: "Himadri Shah",
+        username: "himadri_shah",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
+      },
+      {
+        _id: uuid(),
+        fullName: "Nikhil_Belide",
+        username: "Nikhil_Belide",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
+      },
     ],
     followers: [
-      { _id: uuid(), fullName: "Shubham Soni", username: "shubhamsoni" },
+      {
+        _id: uuid(),
+        fullName: "Shubham Soni",
+        username: "shubhamsoni",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
+      },
     ],
   },
   {
@@ -58,11 +100,29 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
-      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
-      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
+      {
+        _id: uuid(),
+        fullName: "Himadri Shah",
+        username: "himadri_shah",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
+      },
+      {
+        _id: uuid(),
+        fullName: "John Doe",
+        username: "john_doe",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
+      },
     ],
     followers: [
-      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+      {
+        _id: uuid(),
+        fullName: "Himadri Shah",
+        username: "himadri_shah",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
+      },
     ],
   },
   {
@@ -77,11 +137,29 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     following: [
-      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+      {
+        _id: uuid(),
+        fullName: "Himadri Shah",
+        username: "himadri_shah",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
+      },
     ],
     followers: [
-      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
-      { _id: uuid(), fullName: "Himadri Shah", username: "himadri_shah" },
+      {
+        _id: uuid(),
+        fullName: "John Doe",
+        username: "john_doe",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
+      },
+      {
+        _id: uuid(),
+        fullName: "Himadri Shah",
+        username: "himadri_shah",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
+      },
     ],
   },
 ];
