@@ -28,12 +28,11 @@ export const Home = () => {
 
   const followingUsers = loggedInUser?.following;
 
-  const postOfFollowingUsers = posts?.filter((post) =>
-    followingUsers?.some(
-      (followingUser) =>
-        followingUser.username === post.username ||
-        user.username === post.username
-    )
+  const postOfFollowingUsers = posts?.filter(
+    (post) =>
+      followingUsers?.some(
+        (followingUser) => followingUser.username === post.username
+      ) || user.username === post.username
   );
 
   const sortedPosts = sortByDate(postOfFollowingUsers, activeSort);
