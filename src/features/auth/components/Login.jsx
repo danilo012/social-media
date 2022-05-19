@@ -109,7 +109,7 @@ export const Login = () => {
                   })
                 }
               >
-                Guest Mode
+                Log In as Guest
               </button>
             </form>
           </div>

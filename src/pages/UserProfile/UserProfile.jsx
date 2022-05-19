@@ -43,6 +43,8 @@ export const UserProfile = () => {
 
         {isLoading ? (
           <Loader />
+        ) : !currentUser ? (
+          <p className="p-4 text-center">User not found.</p>
         ) : currentUserPosts?.length ? (
           [...currentUserPosts]
             ?.reverse()
