@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loader, Sidebar, SuggestedUsers, SearchBar } from "components";
 import { getPosts, PostCard } from "features/post";
 import { getAllUsers } from "features/user";
+import { sortByDate } from "utils";
 
 export const Explore = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,8 @@ export const Explore = () => {
     dispatch(getPosts());
     dispatch(getAllUsers());
   }, [dispatch]);
+
+  const latestPosts = sortByDate(posts, "Latest");
 
   return (
     <div className="grid sm:grid-cols-[5rem_1fr] lg:grid-cols-[15rem_1fr] xl:grid-cols-[13rem_1fr_18rem] w-[100%] lg:w-[80%] mb-16 sm:m-auto">
@@ -28,8 +31,8 @@ export const Explore = () => {
         <div>
           {isLoading ? (
             <Loader />
-          ) : posts.length ? (
-            [...posts]
+          ) : latestPosts.length ? (
+            [...latestPosts]
               .reverse()
               .map((post) => <PostCard post={post} key={post._id} />)
           ) : (

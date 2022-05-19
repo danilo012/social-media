@@ -45,7 +45,7 @@ export const PostCard = ({ post }) => {
         <UserAvatar user={currentUser} />
       </div>
 
-      <div className="flex flex-col gap-1 break-all">
+      <div className="flex flex-col gap-2 break-all">
         <div className="flex justify-between ">
           <div
             className="flex items-start 2xl:items-center gap-1.5"
