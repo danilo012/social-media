@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
 import { updateProfile, setLoading } from "features/user";
 import toast from "react-hot-toast";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dsxjhas6t/image/upload";
 const CLOUDINARY_UPLOAD_PRESET = "gjjzcn60";
@@ -11,6 +12,8 @@ export const EditProfileModal = ({ setEditModal }) => {
   const { token, user } = useSelector((state) => state.auth);
   const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const modalRef = useRef();
 
   const currentUser = users?.find(
     (dbUser) => dbUser.username === user.username
@@ -66,8 +69,13 @@ export const EditProfileModal = ({ setEditModal }) => {
     setEditModal(false);
   };
 
+  useOnClickOutside(modalRef, setEditModal);
+
   return (
-    <div className="bg-darkSecondary mx-4 text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto">
+    <div
+      className="bg-darkSecondary mx-4 text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto"
+      ref={modalRef}
+    >
       <form className="flex flex-col gap-2.5" onSubmit={editFormHandler}>
         <div className="flex justify-between items-center ">
           <div className="flex items-center">

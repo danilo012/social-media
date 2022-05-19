@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
 import { createPost, editPost } from "features/post";
 import { focusInput } from "utils";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
   const [input, setInput] = useState("");
@@ -13,6 +14,7 @@ export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
   const dispatch = useDispatch();
 
   const newPostRef = useRef();
+  const modalRef = useRef();
 
   const currentUser = users?.find(
     (dbUser) => dbUser.username === user.username
@@ -37,6 +39,8 @@ export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
     if (post) newPostRef.current.innerText = post.content;
   }, [post]);
 
+  useOnClickOutside(modalRef, setShowNewPostModal);
+
   return (
     <div
       className="grid grid-cols-[2rem_1fr] gap-2 items-start bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text w-[80%] sm:w-1/2 shadow-dark shadow-lg rounded border"
@@ -44,6 +48,7 @@ export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
         e.stopPropagation();
         focusInput(newPostRef);
       }}
+      ref={modalRef}
     >
       <UserAvatar user={currentUser} />
 

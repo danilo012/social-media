@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, editComment } from "features/post";
 import { UserAvatar } from "components";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 export const CommentModal = ({
   commentExists,
@@ -19,6 +20,7 @@ export const CommentModal = ({
   );
 
   const commentRef = useRef();
+  const modalRef = useRef();
 
   const commentId = commentExists?._id;
 
@@ -38,8 +40,13 @@ export const CommentModal = ({
     if (commentExists) commentRef.current.innerText = commentExists.comment;
   }, [commentExists]);
 
+  useOnClickOutside(modalRef, setShowCommentModal);
+
   return (
-    <div className="grid grid-cols-[2rem_1fr] gap-2 items-start bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text w-[80%] sm:w-1/2 shadow-dark shadow-lg rounded border">
+    <div
+      className="grid grid-cols-[2rem_1fr] gap-2 items-start bg-darkSecondary text-sm  border-darkGrey px-4 py-3 cursor-text w-[80%] sm:w-1/2 shadow-dark shadow-lg rounded border"
+      ref={modalRef}
+    >
       <UserAvatar user={loggedInUser} />
 
       <form className="flex flex-col gap-4" onSubmit={addCommentHandler}>
