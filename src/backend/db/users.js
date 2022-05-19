@@ -34,7 +34,13 @@ export const users = [
       },
     ],
     followers: [
-      { _id: uuid(), fullName: "John Doe", username: "john_doe" },
+      {
+        _id: uuid(),
+        fullName: "John Doe",
+        username: "john_doe",
+        profileAvatar:
+          "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
+      },
       {
         _id: uuid(),
         fullName: "Shubham Soni",
