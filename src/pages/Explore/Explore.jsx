@@ -21,7 +21,7 @@ export const Explore = () => {
       <Sidebar />
 
       <div className="sm:border-x border-darkGrey">
-        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10 border-b border-darkGrey flex justify-between">
+        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-10 border-b border-darkGrey flex items-center justify-between">
           Explore
           <div className="block xl:hidden">
             <SearchBar />

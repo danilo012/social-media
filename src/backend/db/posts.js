@@ -10,7 +10,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. ",
+      "In some ways, programming is like painting. You start with a blank canvas and certain basic raw materials. You use a combination of science, art, and craft to determine what to do with them.",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -25,7 +25,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "People want to get real world experience and Open Source is just sitting there waiting for YOU!",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -39,7 +39,7 @@ export const posts = [
       {
         _id: uuid(),
         comment:
-          "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis ",
+          "I am new to this. How to start open source?? Can anyone tell me",
         fullName: "Nikhil_Belide",
         username: "Nikhil_Belide",
         profileAvatar:
@@ -56,7 +56,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "You are wealthy when you can freely decide what to do with your time.",
     likes: {
       likeCount: 2,
       likedBy: [
@@ -86,7 +86,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "I'm not even buying Twitter and I spend 80% of my time thinking about it.",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -101,7 +101,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
+      "Programming isn't about what you know; it's about what you can figure out.",
     likes: {
       likeCount: 2,
       likedBy: [
@@ -129,8 +129,7 @@ export const posts = [
     comments: [
       {
         _id: uuid(),
-        comment:
-          "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium",
+        comment: "Especially important for beginners.",
         fullName: "Shubham Soni",
         username: "shubhamsoni",
         profileAvatar:
@@ -147,7 +146,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "When one door of happiness closes, another opens, but often we look so long at the closed door that we do not see the one which has been opened for us.",
     likes: {
       likeCount: 1,
       likedBy: [
@@ -168,8 +167,7 @@ export const posts = [
     comments: [
       {
         _id: uuid(),
-        comment:
-          "eveniet ut et voluptates repudiandae sint et molestiae non recusandae. ",
+        comment: "Nice one!",
         username: "john_doe",
         fullName: "John Doe",
         profileAvatar:
@@ -186,7 +184,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint ",
+      "If I can help people I'll do it by giving them a chance to help themselves; and if I can uplift or inspire, let it be by example, inference and suggestion, rather than by injunction and dictation.",
     likes: {
       likeCount: 3,
       likedBy: [
@@ -223,7 +221,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et",
+      "When Jake Peralta said “cool cool cool cool cool cool”, he was talking about Bangalore's weather 😌",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -236,7 +234,7 @@ export const posts = [
     comments: [
       {
         _id: uuid(),
-        comment: "Hello world",
+        comment: "Yes, of course",
         username: "john_doe",
         fullName: "John Doe",
         profileAvatar:
@@ -250,8 +248,7 @@ export const posts = [
       },
       {
         _id: uuid(),
-        comment:
-          "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+        comment: "❤ for bangalore",
         fullName: "Himadri Shah",
         username: "himadri_shah",
         profileAvatar:
