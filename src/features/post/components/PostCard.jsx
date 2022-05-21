@@ -5,7 +5,12 @@ import { UserAvatar } from "components";
 import { PostOptionsModal, likePost, dislikePost } from "features/post";
 import { addBookmark, removeBookmark } from "features/user";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { likedByLoggedUser, postInBookmarks, getPostDate } from "utils";
+import {
+  likedByLoggedUser,
+  postInBookmarks,
+  getPostDate,
+  sharePost,
+} from "utils";
 import { CommentModal } from "features/post";
 
 export const PostCard = ({ post }) => {
@@ -137,6 +142,16 @@ export const PostCard = ({ post }) => {
                   : "fa-regular"
               }`}
             ></i>
+          </button>
+
+          <button
+            className="cursor-pointer hover:bg-dark hover:rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              sharePost(id);
+            }}
+          >
+            <i className="fa-solid fa-share-nodes p-2"></i>
           </button>
         </div>
       </div>

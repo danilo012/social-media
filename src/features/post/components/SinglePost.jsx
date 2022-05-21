@@ -29,6 +29,7 @@ import {
   postInBookmarks,
   focusInput,
   getPostDate,
+  sharePost,
 } from "utils";
 
 export const SinglePost = () => {
@@ -212,6 +213,18 @@ export const SinglePost = () => {
                           : "fa-regular"
                       }`}
                     ></i>
+                  </button>
+                </div>
+
+                <div>
+                  <button
+                    className="cursor-pointer hover:bg-dark hover:rounded-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      sharePost(currentPost?.id);
+                    }}
+                  >
+                    <i className="fa-solid fa-share-nodes p-2"></i>
                   </button>
                 </div>
               </div>
