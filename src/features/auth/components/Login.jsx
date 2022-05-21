@@ -24,7 +24,7 @@ export const Login = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-80 bg-darkSecondary m-auto p-4 rounded-lg border-light border shadow-darkSecondary shadow-xl">
+        <div className="w-full max-w-[20rem] bg-darkSecondary m-auto p-4 rounded-lg border-light border shadow-darkSecondary shadow-xl">
           <div className="p-4">
             <img src="sapphire.svg" alt="Sapphire" className="h-8 w-8 m-auto" />
 
@@ -109,7 +109,7 @@ export const Login = () => {
                   })
                 }
               >
-                Guest Mode
+                Log In as Guest
               </button>
             </form>
           </div>

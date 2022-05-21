@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login, SignUp } from "features/auth";
-import { Home, Explore, Bookmarks, UserProfile } from "pages";
+import { Home, Explore, Bookmarks, UserProfile, PageNotFound } from "pages";
 import { PrivateRoute } from "routes/PrivateRoute";
 import { ResetScroll } from "components";
 import { SinglePost } from "features/post";
@@ -32,6 +32,8 @@ export const AppRoutes = () => {
               <Route path="/signup" element={<Navigate to="/" replace />} />
             </>
           )}
+
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </ResetScroll>
     </div>

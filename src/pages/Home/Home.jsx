@@ -28,12 +28,11 @@ export const Home = () => {
 
   const followingUsers = loggedInUser?.following;
 
-  const postOfFollowingUsers = posts?.filter((post) =>
-    followingUsers?.some(
-      (followingUser) =>
-        followingUser.username === post.username ||
-        user.username === post.username
-    )
+  const postOfFollowingUsers = posts?.filter(
+    (post) =>
+      followingUsers?.some(
+        (followingUser) => followingUser.username === post.username
+      ) || user.username === post.username
   );
 
   const sortedPosts = sortByDate(postOfFollowingUsers, activeSort);
@@ -43,7 +42,7 @@ export const Home = () => {
       <Sidebar />
 
       <div className="sm:border-x border-darkGrey">
-        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-20 border-b border-darkGrey flex justify-between">
+        <h1 className="text-bold p-4 sticky top-0 bg-[#001527d8] backdrop-blur-sm z-20 border-b border-darkGrey flex items-center justify-between">
           Home
           <div className="block xl:hidden">
             <SearchBar />

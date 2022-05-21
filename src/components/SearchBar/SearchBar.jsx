@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSearchVal } from "features/user";
 import { SearchedUsersModal } from "components";
@@ -7,21 +6,9 @@ import { debounce } from "utils";
 export const SearchBar = () => {
   const { searchVal } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const searchRef = useRef();
-
-  useEffect(() => {
-    const closeOptionsModal = (e) => {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
-        dispatch(setSearchVal(""));
-      }
-    };
-    document.addEventListener("mousedown", closeOptionsModal);
-
-    return () => document.removeEventListener("mousedown", closeOptionsModal);
-  }, [searchRef, dispatch]);
 
   return (
-    <div className="sticky top-[15px] mr-4 xl:mr-0 z-40" ref={searchRef}>
+    <div className="sticky top-[15px] mr-4 xl:mr-0 z-40">
       <div className="relative mx-4 2xl:my-3 w-full rounded-full border border-darkGrey focus-within:border-primary bg-darkSecondary ">
         <input
           type="text"

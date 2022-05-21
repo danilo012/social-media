@@ -1,13 +1,21 @@
 import { UserAvatar } from "components";
 import { useNavigate } from "react-router-dom";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
+import { useRef } from "react";
 
 export const FollowListModal = ({ followModal, setFollowModal }) => {
   const { title, list } = followModal;
 
   const navigate = useNavigate();
+  const modalRef = useRef();
+
+  useOnClickOutside(modalRef, setFollowModal);
 
   return (
-    <div className="bg-darkSecondary text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto mx-4">
+    <div
+      className="bg-darkSecondary text-sm border border-darkGrey p-4 w-80 rounded overflow-y-auto mx-4"
+      ref={modalRef}
+    >
       <div className="flex justify-between items-center mb-4">
         <div className="text-xl">{title}</div>
         <button
