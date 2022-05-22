@@ -157,8 +157,9 @@ export const posts = [
     _id: uuid(),
     content:
       "When one door of happiness closes, another opens, but often we look so long at the closed door that we do not see the one which has been opened for us.",
-    image: null,
-    imageAlt: "",
+    image:
+      "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652783007/sapphire/uyaoznqmfwm2uxxszhk9.jpg",
+    imageAlt: "Road",
     likes: {
       likeCount: 1,
       likedBy: [
