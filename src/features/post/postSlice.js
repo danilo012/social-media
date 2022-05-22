@@ -46,13 +46,10 @@ export const getSinglePost = createAsyncThunk(
 export const createPost = createAsyncThunk(
   "post/createPost",
   async (arg, { rejectWithValue }) => {
-    const { input, token, user } = arg;
-
     try {
-      const { data, status } = await createPostService({ input, token, user });
+      const { data, status } = await createPostService(arg);
 
       if (status === 201) {
-        toast.success("Post added");
         return data.posts;
       }
     } catch {
@@ -64,10 +61,8 @@ export const createPost = createAsyncThunk(
 export const editPost = createAsyncThunk(
   "post/editPost",
   async (arg, { rejectWithValue }) => {
-    const { token, post, input } = arg;
-
     try {
-      const { data, status } = await editPostService({ token, post, input });
+      const { data, status } = await editPostService(arg);
 
       if (status === 201) {
         return data.posts;
@@ -181,6 +176,8 @@ export const postSlice = createSlice({
     singlePost: null,
     activeSort: "Latest",
     isLoading: false,
+    loadingId: "",
+
     error: "",
   },
   reducers: {
@@ -190,6 +187,10 @@ export const postSlice = createSlice({
 
     setActiveSort: (state, { payload }) => {
       state.activeSort = payload;
+    },
+
+    setLoadingId: (state, { payload }) => {
+      state.loadingId = payload;
     },
   },
 
@@ -219,6 +220,7 @@ export const postSlice = createSlice({
 
     [createPost.fulfilled]: (state, { payload }) => {
       state.posts = payload;
+      toast.success("Post added", { id: state.loadingId });
     },
     [createPost.rejected]: (state, { payload }) => {
       state.error = payload;
@@ -226,6 +228,7 @@ export const postSlice = createSlice({
 
     [editPost.fulfilled]: (state, { payload }) => {
       state.posts = payload;
+      toast.success("Post updated", { id: state.loadingId });
     },
     [editPost.rejected]: (state, { payload }) => {
       state.error = payload;
@@ -264,5 +267,6 @@ export const postSlice = createSlice({
   },
 });
 
-export const { resetSinglePost, setActiveSort } = postSlice.actions;
+export const { resetSinglePost, setActiveSort, setLoadingId } =
+  postSlice.actions;
 export default postSlice.reducer;

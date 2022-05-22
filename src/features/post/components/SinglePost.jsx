@@ -143,6 +143,14 @@ export const SinglePost = () => {
                   </div>
 
                   <div>{currentPost?.content}</div>
+
+                  {currentPost?.image ? (
+                    <img
+                      src={currentPost?.image}
+                      alt={currentPost?.imageAlt}
+                      className="w-full h-auto rounded-md"
+                    ></img>
+                  ) : null}
                 </div>
               </div>
 
