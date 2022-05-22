@@ -1,12 +1,14 @@
 import "../styles.css";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 import { UserAvatar } from "components";
-import { createPost } from "features/post";
-import { focusInput } from "utils";
+import { createPost, setLoadingId } from "features/post";
+import { focusInput, uploadImage } from "utils";
 
 export const NewPost = () => {
   const [input, setInput] = useState("");
+  const [image, setImage] = useState(null);
 
   const { token, user } = useSelector((state) => state.auth);
   const { users } = useSelector((state) => state.user);
@@ -18,12 +20,27 @@ export const NewPost = () => {
     (dbUser) => dbUser.username === user.username
   );
 
-  const submitPost = (e) => {
+  const submitPost = async (e) => {
     e.preventDefault();
 
-    dispatch(createPost({ input, token, user }));
+    dispatch(setLoadingId(toast.loading("Adding post")));
+
+    if (image) {
+      const resp = await uploadImage(image);
+      dispatch(
+        createPost({
+          input,
+          image: resp.url,
+          imageAlt: resp.original_filename,
+          token,
+          user,
+        })
+      );
+    } else
+      dispatch(createPost({ input, image: "", imageAlt: "", token, user }));
 
     setInput("");
+    setImage(null);
     newPostRef.current.innerText = "";
   };
 
@@ -47,11 +64,41 @@ export const NewPost = () => {
           onInput={(e) => setInput(e.currentTarget.textContent)}
         />
 
-        <div className="ml-auto flex gap-2">
+        {image ? (
+          <div className="relative">
+            <img
+              src={URL.createObjectURL(image)}
+              className="w-full h-auto rounded-md"
+              alt="demo"
+            />
+            <button
+              type="button"
+              className="absolute top-1 left-2 text-lg"
+              onClick={() => setImage(null)}
+            >
+              <i className="fa-solid fa-square-xmark"></i>
+            </button>
+          </div>
+        ) : null}
+
+        <div className="ml-auto flex items-center gap-4">
+          <label className="cursor-pointer text-lg">
+            <input
+              type="file"
+              className="hidden"
+              onChange={(e) =>
+                Math.round(e.target.files[0].size / 1024000) > 1
+                  ? toast.error("File size should not be more than 1Mb")
+                  : setImage(e.target.files[0])
+              }
+            />
+            <i className="fa-solid fa-image"></i>
+          </label>
+
           <button
             type="submit"
             className="bg-primary rounded-full py-1 px-3 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={!input.trim()}
+            disabled={!input.trim() && !image}
           >
             Post
           </button>

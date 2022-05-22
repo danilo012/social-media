@@ -11,6 +11,8 @@ export const posts = [
     _id: uuid(),
     content:
       "In some ways, programming is like painting. You start with a blank canvas and certain basic raw materials. You use a combination of science, art, and craft to determine what to do with them.",
+    image: null,
+    imageAlt: "",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -26,6 +28,8 @@ export const posts = [
     _id: uuid(),
     content:
       "People want to get real world experience and Open Source is just sitting there waiting for YOU!",
+    image: null,
+    imageAlt: "",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -57,6 +61,8 @@ export const posts = [
     _id: uuid(),
     content:
       "You are wealthy when you can freely decide what to do with your time.",
+    image: null,
+    imageAlt: "",
     likes: {
       likeCount: 2,
       likedBy: [
@@ -87,6 +93,8 @@ export const posts = [
     _id: uuid(),
     content:
       "I'm not even buying Twitter and I spend 80% of my time thinking about it.",
+    image: null,
+    imageAlt: "",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -102,6 +110,8 @@ export const posts = [
     _id: uuid(),
     content:
       "Programming isn't about what you know; it's about what you can figure out.",
+    image: null,
+    imageAlt: "",
     likes: {
       likeCount: 2,
       likedBy: [
@@ -147,6 +157,9 @@ export const posts = [
     _id: uuid(),
     content:
       "When one door of happiness closes, another opens, but often we look so long at the closed door that we do not see the one which has been opened for us.",
+    image:
+      "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652783007/sapphire/uyaoznqmfwm2uxxszhk9.jpg",
+    imageAlt: "Road",
     likes: {
       likeCount: 1,
       likedBy: [
@@ -185,6 +198,8 @@ export const posts = [
     _id: uuid(),
     content:
       "If I can help people I'll do it by giving them a chance to help themselves; and if I can uplift or inspire, let it be by example, inference and suggestion, rather than by injunction and dictation.",
+    image: null,
+    imageAlt: "",
     likes: {
       likeCount: 3,
       likedBy: [
@@ -222,6 +237,8 @@ export const posts = [
     _id: uuid(),
     content:
       "When Jake Peralta said “cool cool cool cool cool cool”, he was talking about Bangalore's weather 😌",
+    image: null,
+    imageAlt: "",
     likes: {
       likeCount: 0,
       likedBy: [],

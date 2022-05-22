@@ -87,6 +87,14 @@ export const PostCard = ({ post }) => {
 
         <div>{content}</div>
 
+        {currentPost?.image ? (
+          <img
+            src={currentPost?.image}
+            className="w-full h-auto rounded-md"
+            alt={currentPost?.imageAlt}
+          ></img>
+        ) : null}
+
         <div className="flex gap-6 -ml-2 mt-1">
           <div>
             <button
