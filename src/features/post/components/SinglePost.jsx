@@ -85,7 +85,7 @@ export const SinglePost = () => {
         <div>
           {isLoading ? (
             <Loader />
-          ) : (
+          ) : currentPost ? (
             <div
               className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
               ref={postRef}
@@ -286,6 +286,8 @@ export const SinglePost = () => {
                     ))
                 : null}
             </div>
+          ) : (
+            <p className="p-4 text-center">Post not found</p>
           )}
         </div>
 
