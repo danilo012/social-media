@@ -1,1 +1,3 @@
-No changes made
+- Refactored the login and signup pages
+- Made the post accept only image files
+- Refactorings in the user db
