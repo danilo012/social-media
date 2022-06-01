@@ -1,7 +1,14 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login, SignUp } from "features/auth";
-import { Home, Explore, Bookmarks, UserProfile, PageNotFound } from "pages";
+import {
+  Home,
+  Explore,
+  Bookmarks,
+  UserProfile,
+  PageNotFound,
+  Authentication,
+} from "pages";
 import { PrivateRoute } from "routes/PrivateRoute";
 import { ResetScroll } from "components";
 import { SinglePost } from "features/post";
@@ -21,17 +28,19 @@ export const AppRoutes = () => {
             <Route path="/profile/:username" element={<UserProfile />} />
           </Route>
 
-          {!token ? (
-            <>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-            </>
-          ) : (
-            <>
-              <Route path="/login" element={<Navigate to="/" replace />} />
-              <Route path="/signup" element={<Navigate to="/" replace />} />
-            </>
-          )}
+          <Route path="/auth" element={<Authentication />}>
+            {!token ? (
+              <>
+                <Route path="login" element={<Login />} />
+                <Route path="signup" element={<SignUp />} />
+              </>
+            ) : (
+              <>
+                <Route path="login" element={<Navigate to="/" replace />} />
+                <Route path="signup" element={<Navigate to="/" replace />} />
+              </>
+            )}
+          </Route>
 
           <Route path="/*" element={<PageNotFound />} />
         </Routes>

@@ -11,8 +11,8 @@ export const users = [
     fullName: "Himadri Shah",
     username: "himadri_shah",
     password: "himadri123",
-    bio: "Hey there, Himadri here",
-    website: "https://www.himadrishah.tech",
+    bio: "Web Developer",
+    website: "https://himadrishah.tech",
     profileAvatar:
       "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
     createdAt: formatDate(),
@@ -62,8 +62,8 @@ export const users = [
     fullName: "John Doe",
     username: "john_doe",
     password: "123john",
-    bio: "Hey there, John here",
-    website: "https://www.google.com",
+    bio: "People use my name for dummy user",
+    website: "https://johndoehub.com",
     profileAvatar:
       "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433139/sapphire/150_bo4wzw.jpg",
     createdAt: formatDate(),
@@ -99,8 +99,8 @@ export const users = [
     fullName: "Shubham Soni",
     username: "shubhamsoni",
     password: "shubham456",
-    bio: "Hey there, Shubham here",
-    website: "https://www.google.com",
+    bio: "AI Enthusiast",
+    website: "https://shubhamsoni.me",
     profileAvatar:
       "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433079/sapphire/150_qbbogt.jpg",
     createdAt: formatDate(),
@@ -137,7 +137,7 @@ export const users = [
     username: "Nikhil_Belide",
     password: "nikhil_00",
     bio: "Web Dev under Construction",
-    website: "https://www.nikhil-belide.netlify.app",
+    website: "https://nikhil-belide.netlify.app",
     profileAvatar:
       "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652432744/sapphire/150_enlsji.jpg",
     createdAt: formatDate(),
