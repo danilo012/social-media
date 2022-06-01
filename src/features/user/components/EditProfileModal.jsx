@@ -97,6 +97,7 @@ export const EditProfileModal = ({ setEditModal }) => {
         <label className="edit-profile relative w-max cursor-pointer mx-auto my-2">
           <input
             type="file"
+            accept="image/*"
             className="hidden"
             onChange={(e) => {
               Math.round(e.target.files[0].size / 1024000) > 1

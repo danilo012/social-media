@@ -143,6 +143,7 @@ export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
           <label className="cursor-pointer text-lg">
             <input
               type="file"
+              accept="image/*"
               className="hidden"
               onChange={(e) => {
                 if (Math.round(e.target.files[0].size / 1024000) > 1) {

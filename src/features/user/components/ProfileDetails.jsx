@@ -104,7 +104,7 @@ export const ProfileDetails = ({ currentUser }) => {
                 className="hover:underline text-primary"
               >
                 <i className="fa-solid fa-link mr-1 text-xs"></i>
-                {website.slice(12)}
+                {website.slice(8)}
               </a>
             )}
           </div>
