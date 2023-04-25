@@ -8,11 +8,11 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: uuid(),
-    fullName: "Himadri Shah",
-    username: "himadri_shah",
-    password: "himadri123",
-    bio: "Web Developer",
-    website: "https://himadrishah.tech",
+    fullName: "DEFAULT USER",
+    username: "user",
+    password: "123",
+    bio: "Webapp user",
+    website: "https://facebook.com",
     profileAvatar:
       "https://res.cloudinary.com/dsxjhas6t/image/upload/v1652433208/sapphire/150_x5gbob.jpg",
     createdAt: formatDate(),
